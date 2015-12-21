@@ -4,4 +4,5 @@ __author__ = 'Administrator'
 class MySqlConfig(object):
     name = "root"
     password = "123456"
-    db = "mysql"
+    db = "test"
+    hostName = "localhost"
