@@ -39,7 +39,7 @@ def list():
 
 
 server = SimpleXMLRPCServer(("localhost", 8000))
-print "Listening on port 8000..."
+
 server.register_function(is_even, "is_even")
 server.register_function(list, "list")
 server.serve_forever()

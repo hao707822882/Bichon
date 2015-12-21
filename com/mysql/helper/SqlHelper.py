@@ -25,7 +25,7 @@ class SqlHelper(BaseLoggingObj):
         return data
 
     '''
-        configÄ¬ÈÏÊÇMySqlConfig£¬¿ÉÍ¨¹ı¹¹Ôì²ÎÊı´«Èë
+        configé»˜è®¤æ˜¯MySqlConfigï¼Œå¯é€šè¿‡æ„é€ å‚æ•°ä¼ å…¥
     '''
 
     def __init__(self, config=MySqlConfig):
@@ -35,11 +35,12 @@ class SqlHelper(BaseLoggingObj):
         self.name = config.name
         self.db = config.db
         self.password = config.password
+        self.charset = config.charset
 
     def doInternal(self, action, commond):
         data = None;
         db = MySQLdb.connect(host=self.hostName, user=self.name, passwd=self.password, db=self.db,
-                             cursorclass=MySQLdb.cursors.DictCursor)
+                             cursorclass=MySQLdb.cursors.DictCursor, charset=self.charset)
         cursor = db.cursor()
         data = action(cursor, commond)
         db.commit()
@@ -51,9 +52,9 @@ class SqlHelper(BaseLoggingObj):
         try:
             self.doInternal(SqlHelper.__excute, sql)
             return True
-        except Error:
-            self.logging.error("insert error")
-        return False
+        except Error, e:
+            self.logging.error("insert error %s", e)
+            return False
 
     @logger
     def insert(self, *sql):
