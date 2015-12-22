@@ -23,20 +23,25 @@
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/21
-#  Time: 15:16
+#  Time: 18:19
 
+from com.common.agent.AbsAgentProxy import AgentProxy
+from com.common.BaseLoggingObj import BaseLoggingObj
 
 __author__ = 'Administrator'
 
-from abc import ABCMeta, abstractmethod
 
-
-class Agent(object):
-    __metaclass__ = ABCMeta
+class DefaultAgentProxy(AgentProxy, BaseLoggingObj):
+    def list(self):
+        return ["cpu", "net"]
 
     def __init__(self):
-        pass
+        self.logging.info("init DefaultAgent from file %s", __file__);
 
-    @abstractmethod
-    def list(self):
-        pass
+    def cpu(self):
+        return {"cores", [{"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"},
+                          {"sys": "0.1", "us": "30"}]}
+
+    def net(self):
+        return {"eth", [{"in": "100k", "out": "500"}, {"in": "100k", "out": "500"}, {"in": "100k", "out": "500"},
+                        {"in": "100k", "out": "500"}]}

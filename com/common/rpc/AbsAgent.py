@@ -28,6 +28,10 @@
 __author__ = 'Administrator'
 
 from com.Config import Config
+from SimpleXMLRPCServer import SimpleXMLRPCServer
+from com.common.BaseLoggingObj import BaseLoggingObj
+from com.Config import Config
+from abc import ABCMeta, abstractmethod
 
 '''
     bichon server rpc client
@@ -35,7 +39,16 @@ from com.Config import Config
 '''
 
 
-class Agent(object):
-    def __init__(self):
+class AbsAgent(BaseLoggingObj):
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def regisFunc(self):
+        pass
+
+    def __init__(self, conf=Config):
         self.name = "bichon agent rpc server"
         self.version = Config.version
+        self.server = SimpleXMLRPCServer(("localhost", conf.agent_port))
+        self.regisFunc(self)
+        self.logging.info("agent start over ......")

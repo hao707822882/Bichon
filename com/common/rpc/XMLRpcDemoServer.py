@@ -28,18 +28,11 @@
 __author__ = 'Administrator'
 import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
+from com.common.BaseLoggingObj import BaseLoggingObj
+from com.Config import Config
 
 
-def is_even(n):
-    return n % 2 == 0
-
-
-def list():
-    return ["is_even"]
-
-
-server = SimpleXMLRPCServer(("localhost", 8000))
-
-server.register_function(is_even, "is_even")
-server.register_function(list, "list")
-server.serve_forever()
+class AgentServer(BaseLoggingObj):
+    def __init__(self, conf=Config):
+        server = SimpleXMLRPCServer(("localhost", 8000))
+        server.serve_forever()

@@ -22,18 +22,21 @@
 #  ©•©•©•©•©•©•∏–æı√»√»ﬂ’©•©•©•©•©•©•
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/22
-#  Time: 10:22
+#  Date: 2015/12/21
+#  Time: 15:16
 
 
 __author__ = 'Administrator'
 
-from com.common.rpc.AbsAgent import AbsAgent
+from abc import ABCMeta, abstractmethod
 
 
-class DefaultAgent(AbsAgent):
-    def regisFunc(self):
-        self.server.register_function()
+class AgentProxy(object):
+    __metaclass__ = ABCMeta
 
     def __init__(self):
-        AbsAgent.__init__()
+        pass
+
+    @abstractmethod
+    def list(self):
+        pass
