@@ -36,6 +36,11 @@ __author__ = 'Administrator'
 @author: CaiKnife
 
 根据函数名称动态调用
+
+根据约定大于编码，包名以com开头，包内要有__init__.py
+
+
+
 """
 
 
@@ -49,7 +54,8 @@ class DymUtil(object):
         return __import__("com.common.agent.module.monitoring.cpu.CpuModule", fromlist=[mudelPath])
 
 
-obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu", "CpuModule")
+obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu\\CpuModule.py",
+                                "CpuModule")
 
 aClass = getattr(obj, "CpuModule")
 
