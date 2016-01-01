@@ -32,15 +32,17 @@ import psutil
 
 __author__ = 'Administrator'
 
+export = [{"cpu信息": "getCpuInfo"}]
 
-class CpuModule(BaseLoggingObj, Monitor, object):
-    def info(self):
-        return self.__getCpuInfo()
 
+class CpuModule(BaseLoggingObj, object):
     def __init__(self):
-        Monitor.__init__(self)
         BaseLoggingObj.__init__(self)
         logger("CpuModule added !")
 
-    def __getCpuInfo(self):
+    '''
+        获取cpu信息
+    '''
+
+    def getCpuInfo(self):
         return psutil.cpu_times(percpu=True)

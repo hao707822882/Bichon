@@ -32,11 +32,10 @@ import psutil
 
 __author__ = 'Administrator'
 
+export = [{"存储信息": "getDiskInfo"}]
 
-class DiskModule(BaseLoggingObj, Monitor, object):
-    def info(self):
-        pass
 
+class DiskModule(BaseLoggingObj, object):
     def __init__(self):
         pass
 
@@ -45,3 +44,10 @@ class DiskModule(BaseLoggingObj, Monitor, object):
 
     def __getDiskPartitionUsageInfo(self, path):
         return psutil.disk_usage(path)
+
+    def getDiskInfo(self):
+        diskInfo = []
+        partitions = self.__getDiskPartitionInfo()
+        for partition in partitions:
+            diskInfo.append(self.__getDiskPartitionUsageInfo(partition[0]))
+        return diskInfo

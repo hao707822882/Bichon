@@ -32,13 +32,16 @@ import psutil
 
 __author__ = 'Administrator'
 
+export = [{"内存信息": "getMemInfo"}]
 
-class MemModule(BaseLoggingObj, Monitor, object):
-    def info(self):
-        pass
 
+class MemModule(BaseLoggingObj, object):
     def __init__(self):
-        pass
+        self.logging.log("create MemModule !")
 
-    def __getMemInfo(self):
+    '''
+        获取内存信息
+    '''
+
+    def getMemInfo(self):
         return psutil.virtual_memory()

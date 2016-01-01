@@ -32,13 +32,13 @@ import psutil
 
 __author__ = 'Administrator'
 
+export = [{"网卡信息": "getNetInfo"}]
 
-class CpuModule(BaseLoggingObj, Monitor, object):
-    def info(self):
-        pass
 
+class NetModule(BaseLoggingObj, object):
     def __init__(self):
+        self.logging.log("create NetModule")
         pass
 
-    def __getNetInfo(self):
+    def getNetInfo(self):
         return psutil.net_io_counters(pernic=True)

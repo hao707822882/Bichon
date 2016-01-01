@@ -32,14 +32,12 @@ import psutil
 
 __author__ = 'Administrator'
 
+export = []
 
-class ServiceModule(BaseLoggingObj, Monitor, object):
-    def info(self):
-        pass
 
+class ServiceModule(BaseLoggingObj, object):
     def __init__(self):
-        pass
+        self.logging.log("create ServiceModule !")
 
-    def __getServiceInfo(self):
-        cputime = psutil.cpu_times(percpu=True)
-        return cputime
+    def getServiceInfo(self):
+        return
