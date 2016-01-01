@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -21,34 +22,15 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 11:34
+#  Date: 2015/12/22
+#  Time: 12:26
 
 
 __author__ = 'Administrator'
 
-from SimpleXMLRPCServer import SimpleXMLRPCServer
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.Config import Config
-from abc import ABCMeta, abstractmethod
+from com.common.broker.DefaultBroker import DefaultBroker
 
-'''
-    bichon server rpc client
+broker = DefaultBroker(agents=[{"host": "127.0.0.1", "port": "8000"}])
 
-'''
-
-
-class AbsAgent(BaseLoggingObj):
-    __metaclass__ = ABCMeta
-
-    @abstractmethod
-    def regisFunc(self):
-        pass
-
-    def __init__(self, config=Config):
-        self.name = "bichon agent rpc server"
-        self.version = Config.version
-        self.server = SimpleXMLRPCServer(("localhost", config.agent_port))
-        self.regisFunc()
-        self.server.serve_forever()
-        self.logging.info("agent start over ......")
+print broker.action("127.0.0.1", "net")
+print broker.action("127.0.0.1", "cpu")

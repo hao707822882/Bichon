@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -21,18 +22,32 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 11:24
+#  Date: 2015/12/22
+#  Time: 11:11
 
 
 __author__ = 'Administrator'
-import xmlrpclib
-from SimpleXMLRPCServer import SimpleXMLRPCServer
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.Config import Config
+from abc import ABCMeta, abstractmethod
+
+'''
+    agents is an arrary
+        struct like [{host,port},{host,port}]
+'''
 
 
-class AgentServer(BaseLoggingObj):
-    def __init__(self, conf=Config):
-        server = SimpleXMLRPCServer(("localhost", 8000))
-        server.serve_forever()
+class AbsBroker(BaseLoggingObj):
+    __metaclass__ = ABCMeta
+
+    def __init__(self, agents=[], config=Config):
+        self.name = "bichon broker server"
+        self.version = Config.version
+        self.agents = {}
+        self.errorAgents = []
+        self.initAgent(agents)
+        self.logging.info("broker start over ......")
+
+    @abstractmethod
+    def initAgent(self):
+        pass

@@ -1,25 +1,25 @@
 #! /usr/bin/env python
 # --coding:utf-8--
 # coding: utf-8
-# ©¥©¥©¥©¥©¥©¥ÉñÊŞ³öÃ»©¥©¥©¥©¥©¥©¥
-#  ¡¡¡¡¡¡©³©·¡¡¡¡¡¡©³©·
-#  ¡¡¡¡©³©¿©ß©¥©¥©¥©¿©ß©·
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡©¥¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡©×©¿¡¡©»©×¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡©ß¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©»©¥©·¡¡¡¡¡¡©³©¥©¿
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©§ÉñÊŞ±£ÓÓ, ÓÀÎŞBUG!
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©§Code is far away from bug with the animal protecting
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©»©¥©¥©¥©·
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©Ç©·
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©³©¿
-#  ¡¡¡¡¡¡¡¡©»©·©·©³©¥©×©·©³©¿
-#  ¡¡¡¡¡¡¡¡¡¡©§©Ï©Ï¡¡©§©Ï©Ï
-#  ¡¡¡¡¡¡¡¡¡¡©»©ß©¿¡¡©»©ß©¿
-#  ©¥©¥©¥©¥©¥©¥¸Ğ¾õÃÈÃÈßÕ©¥©¥©¥©¥©¥©¥
+# â”â”â”â”â”â”ç¥å…½å‡ºæ²¡â”â”â”â”â”â”
+#  ã€€ã€€ã€€â”â”“ã€€ã€€ã€€â”â”“
+#  ã€€ã€€â”â”›â”»â”â”â”â”›â”»â”“
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€â”ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€â”³â”›ã€€â”—â”³ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€â”»ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”—â”â”“ã€€ã€€ã€€â”â”â”›
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”ƒç¥å…½ä¿ä½‘, æ°¸æ— BUG!
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”ƒCode is far away from bug with the animal protecting
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”—â”â”â”â”“
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”£â”“
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”â”›
+#  ã€€ã€€ã€€ã€€â”—â”“â”“â”â”â”³â”“â”â”›
+#  ã€€ã€€ã€€ã€€ã€€â”ƒâ”«â”«ã€€â”ƒâ”«â”«
+#  ã€€ã€€ã€€ã€€ã€€â”—â”»â”›ã€€â”—â”»â”›
+#  â”â”â”â”â”â”æ„Ÿè§‰èŒèŒå“’â”â”â”â”â”â”
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/22
@@ -29,11 +29,23 @@
 __author__ = 'Administrator'
 
 from com.common.rpc.AbsAgent import AbsAgent
+from com.common.agent.DefaultAgentProxy import DefaultAgentProxy
+from com.common.BaseLoggingObj import BaseLoggingObj
+from com.common.BaseLoggingObj import logger
+from com.Config import Config
 
 
-class DefaultAgent(AbsAgent):
+class DefaultAgent(AbsAgent, BaseLoggingObj):
+    @logger
     def regisFunc(self):
-        self.server.register_function()
+        agentProxy = DefaultAgentProxy()
+        self.server.register_function(agentProxy.list, "list")
+        self.server.register_function(agentProxy.cpu, "cpu")
+        self.server.register_function(agentProxy.net, "net")
 
-    def __init__(self):
-        AbsAgent.__init__()
+    def __init__(self, config=Config):
+        BaseLoggingObj.__init__(self, config=config)
+        AbsAgent.__init__(self, config=config)
+
+
+agent = DefaultAgent()

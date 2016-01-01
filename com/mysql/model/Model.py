@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -21,16 +22,13 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 11:25
+#  Date: 2015/12/22
+#  Time: 12:41
 
 
 __author__ = 'Administrator'
-import xmlrpclib
 
-proxy = xmlrpclib.ServerProxy("http://localhost:8000/")
 
-proxy = getattr(proxy, "list")()
-
-print "3 is even: %s" % str(getattr(proxy, "list")())
-print "100 is even: %s" % str(proxy.is_even(100))
+class Model(object):
+    def __init__(self):
+        pass

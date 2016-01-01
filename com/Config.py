@@ -32,5 +32,5 @@ __author__ = 'Administrator'
 class Config(object):
     version = "1.0.0"
     logging_level = logging.DEBUG
-    logging_file = "log.txt"
+    logging_file = "D:\\log.txt"
     agent_port = 8000

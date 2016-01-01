@@ -38,14 +38,14 @@ class SqlHelper(BaseLoggingObj):
         self.charset = config.charset
 
     def doInternal(self, action, commond):
-        data = None;
+        data = None
         db = MySQLdb.connect(host=self.hostName, user=self.name, passwd=self.password, db=self.db,
                              cursorclass=MySQLdb.cursors.DictCursor, charset=self.charset)
         cursor = db.cursor()
         data = action(cursor, commond)
         db.commit()
         db.close()
-        if data != None:
+        if data is not None:
             return data
 
     def do(self, sql):
