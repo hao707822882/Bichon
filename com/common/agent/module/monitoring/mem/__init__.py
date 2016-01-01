@@ -22,12 +22,8 @@
 #  ©•©•©•©•©•©•∏–æı√»√»ﬂ’©•©•©•©•©•©•
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 15:23
+#  Date: 2016/1/1
+#  Time: 15:16
 
 
 __author__ = 'Administrator'
-
-'''
-   ¥≈≈Ã≤Œ ˝agent
-'''

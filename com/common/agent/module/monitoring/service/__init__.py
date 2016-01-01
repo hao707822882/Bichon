@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -22,35 +23,12 @@
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/21
-#  Time: 11:40
+#  Time: 15:23
 
-import sys
-import new
-import importlib
 
 __author__ = 'Administrator'
 
-# !/usr/bin/python
-# coding: UTF-8
-"""
-@author: CaiKnife
-
-根据函数名称动态调用
-"""
-
-
-class DymUtil(object):
-    @staticmethod
-    def getattr(source, name):
-        return getattr(source, name)
-
-    @staticmethod
-    def getModuleFromFile(mudelPath, name):
-        return __import__("com.common.agent.module.monitoring.cpu.CpuModule", fromlist=[mudelPath])
-
-
-obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu", "CpuModule")
-
-aClass = getattr(obj, "CpuModule")
-
-print(aClass().info())
+'''
+    监控服务状态信息
+    mysql，http，应用
+'''

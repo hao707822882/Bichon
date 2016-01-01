@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -21,36 +22,24 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 11:40
+#  Date: 2016/1/1
+#  Time: 15:06
 
-import sys
-import new
-import importlib
+from com.common.agent.module.monitoring.Monitor import Monitor
+from com.common.BaseLoggingObj import BaseLoggingObj
+from com.common.BaseLoggingObj import logger
+import psutil
 
 __author__ = 'Administrator'
 
-# !/usr/bin/python
-# coding: UTF-8
-"""
-@author: CaiKnife
 
-根据函数名称动态调用
-"""
+class ServiceModule(BaseLoggingObj, Monitor, object):
+    def info(self):
+        pass
 
+    def __init__(self):
+        pass
 
-class DymUtil(object):
-    @staticmethod
-    def getattr(source, name):
-        return getattr(source, name)
-
-    @staticmethod
-    def getModuleFromFile(mudelPath, name):
-        return __import__("com.common.agent.module.monitoring.cpu.CpuModule", fromlist=[mudelPath])
-
-
-obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu", "CpuModule")
-
-aClass = getattr(obj, "CpuModule")
-
-print(aClass().info())
+    def __getServiceInfo(self):
+        cputime = psutil.cpu_times(percpu=True)
+        return cputime

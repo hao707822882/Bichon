@@ -22,11 +22,12 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 15:23
+#  Date: 2016/1/1
+#  Time: 15:02
 
 
 __author__ = 'Administrator'
+
 '''
-    网络参数检测agent
+    此包下为监控模块
 '''

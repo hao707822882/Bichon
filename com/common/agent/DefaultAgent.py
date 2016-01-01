@@ -47,5 +47,7 @@ class DefaultAgent(AbsAgent, BaseLoggingObj):
         BaseLoggingObj.__init__(self, config=config)
         AbsAgent.__init__(self, config=config)
 
+    def __findModule(self):
+        pass
 
 agent = DefaultAgent()

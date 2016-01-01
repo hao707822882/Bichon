@@ -22,13 +22,19 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 15:23
+#  Date: 2016/1/1
+#  Time: 15:34
 
+
+import os
 
 __author__ = 'Administrator'
 
-'''
-    服务状态检测agrnt  http服务
-        此服务定义：主机表；服务表
-'''
+
+class FileSystemUtil(object):
+    def __init__(self):
+        pass
+
+
+def list(path):
+    return os.listdir(path)
