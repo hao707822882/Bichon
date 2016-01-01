@@ -24,9 +24,6 @@
 #  Date: 2015/12/21
 #  Time: 11:40
 
-import sys
-import new
-import importlib
 
 __author__ = 'Administrator'
 
@@ -59,4 +56,4 @@ obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\
 
 aClass = getattr(obj, "CpuModule")
 
-print(aClass().info())
+print(aClass().getCpuInfo())

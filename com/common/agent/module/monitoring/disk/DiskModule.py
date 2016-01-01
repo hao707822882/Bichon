@@ -25,7 +25,6 @@
 #  Date: 2016/1/1
 #  Time: 15:06
 
-from com.common.agent.module.monitoring.Monitor import Monitor
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
 import psutil
@@ -51,3 +50,5 @@ class DiskModule(BaseLoggingObj, object):
         for partition in partitions:
             diskInfo.append(self.__getDiskPartitionUsageInfo(partition[0]))
         return diskInfo
+
+
