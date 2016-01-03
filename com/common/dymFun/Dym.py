@@ -51,8 +51,7 @@ class DymUtil(object):
         return __import__("com.common.agent.module.monitoring.cpu.CpuModule", fromlist=[mudelPath])
 
 
-obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu\\CpuModule.py",
-                                "CpuModule")
+obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu\\CpuModule.py","CpuModule")
 
 aClass = getattr(obj, "CpuModule")
 
