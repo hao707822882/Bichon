@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -18,21 +19,23 @@
 #  　　　　┗┓┓┏━┳┓┏┛
 #  　　　　　┃┫┫　┃┫┫
 #  　　　　　┗┻┛　┗┻┛
-#  ━━━━━━感觉萌萌哒━━━━━━
-#  Module Desc:clover
+#  ━━━━━━感觉萌萌哒━━━━━━#  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/21
-#  Time: 11:35
+#  Time: 15:16
 
-import logging
 
 __author__ = 'Administrator'
 
+from abc import ABCMeta, abstractmethod
 
-class Config(object):
-    version = "1.0.0"
-    logging_level = logging.DEBUG
-    logging_file = "D:\\log.txt"
-    agent_port = 8000
-    check_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"
-    install_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"
+
+class AbsInstaller(object):
+    __metaclass__ = ABCMeta
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def install(self):
+        pass

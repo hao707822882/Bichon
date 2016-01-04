@@ -24,6 +24,9 @@
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/21
 #  Time: 18:19
+'''
+{'ServiceModule': {'path': 'F:\\sourceReading\\Bichon\\com\\check\\agent\\module\\monitoring\\service\\ServiceModule.py', 'package': 'com.check.agent.module.monitoring.service.ServiceModule'}, 'MemModule': {'path': 'F:\\sourceReading\\Bichon\\com\\check\\agent\\module\\monitoring\\mem\\MemModule.py', 'package': 'com.check.agent.module.monitoring.mem.MemModule'}, 'CpuModule': {'path': 'F:\\sourceReading\\Bichon\\com\\check\\agent\\module\\monitoring\\cpu\\CpuModule.py', 'package': 'com.check.agent.module.monitoring.cpu.CpuModule'}, 'NetModule': {'path': 'F:\\sourceReading\\Bichon\\com\\check\\agent\\module\\monitoring\\net\\NetModule.py', 'package': 'com.check.agent.module.monitoring.net.NetModule'}, 'DiskModule': {'path': 'F:\\sourceReading\\Bichon\\com\\check\\agent\\module\\monitoring\\disk\\DiskModule.py', 'package': 'com.check.agent.module.monitoring.disk.DiskModule'}}
+'''
 
 from com.common.fileSystem.FileSystemUtil import FileSystemUtil
 from com.common.BaseLoggingObj import BaseLoggingObj
@@ -34,10 +37,9 @@ __author__ = 'Administrator'
 
 
 class ModuleScanner(BaseLoggingObj, object):
-    moduleMap = {}
-
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config=config)
+        self.moduleMap = {}
 
     def scan(self, path):
         parentPath = path
@@ -61,6 +63,6 @@ class ModuleScanner(BaseLoggingObj, object):
                         mu_length = len(mu)
                         mu_name = mu[mu_length - 1]
                         module = {"path": nowPath, "package": modul_str}
-                        ModuleScanner.moduleMap.setdefault(mu_name, module)
+                        self.moduleMap.setdefault(mu_name, module)
             else:
                 self.scan(nowPath)

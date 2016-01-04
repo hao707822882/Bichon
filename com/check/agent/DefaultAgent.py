@@ -33,7 +33,7 @@ from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
 from com.common.type.Type import Type
 from com.common.dymFun.Dym import DymUtil
-from com.check.agent.ModuleScanner import ModuleScanner
+from com.common.moduleScanner.ModuleScanner import ModuleScanner
 
 from com.Config import Config
 
@@ -72,6 +72,5 @@ class DefaultAgent(AbsAgent, BaseLoggingObj):
         AbsAgent.__init__(self, config=config)
 
     def findModule(self):
-        self.muScanner.scan(Config.module_path)
-        self.moduleMap = ModuleScanner.moduleMap
-
+        self.muScanner.scan(Config.check_module_path)
+        self.moduleMap = self.muScanner.moduleMap
