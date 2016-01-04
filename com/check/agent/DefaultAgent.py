@@ -33,7 +33,7 @@ from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
 from com.common.type.Type import Type
 from com.common.dymFun.Dym import DymUtil
-from com.agent.ModuleScanner import ModuleScanner
+from com.check.agent.ModuleScanner import ModuleScanner
 
 from com.Config import Config
 

@@ -28,6 +28,6 @@
 
 __author__ = 'Administrator'
 
-from com.agent import DefaultAgent
+from com.check.agent import DefaultAgent
 
 agent = DefaultAgent()

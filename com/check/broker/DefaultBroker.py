@@ -1,25 +1,25 @@
 #! /usr/bin/env python
 # --coding:utf-8--
 # coding: utf-8
-# ���������������޳�û������������
-#  ��������������������
-#  ���������ߩ��������ߩ�
-#  ����������������������
-#  ����������������������
-#  ���������ש������ס���
-#  ����������������������
-#  �������������ߡ�������
-#  ����������������������
-#  ����������������������
-#  ���������������������ޱ���, ����BUG!
-#  ������������������Code is far away from bug with the animal protecting
-#  ��������������������������
-#  �������������������������ǩ�
-#  ����������������������������
-#  �������������������ש�����
-#  �������������ϩϡ����ϩ�
-#  �������������ߩ������ߩ�
-#  �������������о������թ�����������
+# ━━━━━━神兽出没━━━━━━
+#  　　　┏┓　　　┏┓
+#  　　┏┛┻━━━┛┻┓
+#  　　┃　　　　　　　┃
+#  　　┃　　　━　　　┃
+#  　　┃　┳┛　┗┳　┃
+#  　　┃　　　　　　　┃
+#  　　┃　　　┻　　　┃
+#  　　┃　　　　　　　┃
+#  　　┗━┓　　　┏━┛
+#  　　　　┃　　　┃神兽保佑, 永无BUG!
+#  　　　　┃　　　┃Code is far away from bug with the animal protecting
+#  　　　　┃　　　┗━━━┓
+#  　　　　┃　　　　　　　┣┓
+#  　　　　┃　　　　　　　┏┛
+#  　　　　┗┓┓┏━┳┓┏┛
+#  　　　　　┃┫┫　┃┫┫
+#  　　　　　┗┻┛　┗┻┛
+#  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/22
@@ -32,7 +32,7 @@ import xmlrpclib
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
-from com.broker.BrokerProxy import BrokerProxy
+from com.check.broker.BrokerProxy import BrokerProxy
 from com.common.rpc.AbsBroker import AbsBroker
 from com.Config import Config
 
@@ -67,7 +67,6 @@ class DefaultBroker(AbsBroker, BaseLoggingObj):
     def listExport(self):
         for agent in self.agents:
             exp = self.agents[agent].export
-            print(exp)
             self.exportList.append(exp)
         return self.exportList
 
