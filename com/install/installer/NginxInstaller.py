@@ -1,25 +1,25 @@
 #! /usr/bin/env python
 # --coding:utf-8--
 # coding: utf-8
-# ©¥©¥©¥©¥©¥©¥ÉñÊÞ³öÃ»©¥©¥©¥©¥©¥©¥
-#  ¡¡¡¡¡¡©³©·¡¡¡¡¡¡©³©·
-#  ¡¡¡¡©³©¿©ß©¥©¥©¥©¿©ß©·
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡©¥¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡©×©¿¡¡©»©×¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡©ß¡¡¡¡¡¡©§
-#  ¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©§
-#  ¡¡¡¡©»©¥©·¡¡¡¡¡¡©³©¥©¿
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©§ÉñÊÞ±£ÓÓ, ÓÀÎÞBUG!
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©§Code is far away from bug with the animal protecting
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡©»©¥©¥©¥©·
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©Ç©·
-#  ¡¡¡¡¡¡¡¡©§¡¡¡¡¡¡¡¡¡¡¡¡¡¡©³©¿
-#  ¡¡¡¡¡¡¡¡©»©·©·©³©¥©×©·©³©¿
-#  ¡¡¡¡¡¡¡¡¡¡©§©Ï©Ï¡¡©§©Ï©Ï
-#  ¡¡¡¡¡¡¡¡¡¡©»©ß©¿¡¡©»©ß©¿
-#  ©¥©¥©¥©¥©¥©¥¸Ð¾õÃÈÃÈßÕ©¥©¥©¥©¥©¥©¥
+# â”â”â”â”â”â”ç¥žå…½å‡ºæ²¡â”â”â”â”â”â”
+#  ã€€ã€€ã€€â”â”“ã€€ã€€ã€€â”â”“
+#  ã€€ã€€â”â”›â”»â”â”â”â”›â”»â”“
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€â”ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€â”³â”›ã€€â”—â”³ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€â”»ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”ƒ
+#  ã€€ã€€â”—â”â”“ã€€ã€€ã€€â”â”â”›
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”ƒç¥žå…½ä¿ä½‘, æ°¸æ— BUG!
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”ƒCode is far away from bug with the animal protecting
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€â”—â”â”â”â”“
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”£â”“
+#  ã€€ã€€ã€€ã€€â”ƒã€€ã€€ã€€ã€€ã€€ã€€ã€€â”â”›
+#  ã€€ã€€ã€€ã€€â”—â”“â”“â”â”â”³â”“â”â”›
+#  ã€€ã€€ã€€ã€€ã€€â”ƒâ”«â”«ã€€â”ƒâ”«â”«
+#  ã€€ã€€ã€€ã€€ã€€â”—â”»â”›ã€€â”—â”»â”›
+#  â”â”â”â”â”â”æ„Ÿè§‰èŒèŒå“’â”â”â”â”â”â”
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2016/1/4
@@ -34,7 +34,7 @@ __author__ = 'Administrator'
 
 class NginxInstaller(BaseLoggingObj, AbsInstaller, object):
     def install(self):
-        print("°²×°java")
+        print("ï¿½ï¿½×°java")
 
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
