@@ -75,5 +75,3 @@ class DefaultAgent(AbsAgent, BaseLoggingObj):
         self.muScanner.scan(Config.module_path)
         self.moduleMap = ModuleScanner.moduleMap
 
-
-DefaultAgent()

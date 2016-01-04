@@ -69,9 +69,3 @@ class DefaultBroker(AbsBroker, BaseLoggingObj):
             exp = self.agents[agent].export
             self.exportList.append(exp)
         return self.exportList
-
-
-d = DefaultBroker()
-d.initAgent([{"host": "127.0.0.1", "port": 8000}])
-print d.action("127.0.0.1", "getMemInfo")
-print(d.listExport())
