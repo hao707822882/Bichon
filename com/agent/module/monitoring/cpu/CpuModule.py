@@ -27,21 +27,27 @@
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
+import json
+
 import psutil
 
 __author__ = 'Administrator'
-
-export = [{"cpu��Ϣ": "getCpuInfo"}]
 
 
 class CpuModule(BaseLoggingObj, object):
     def __init__(self):
         BaseLoggingObj.__init__(self)
-        logger("CpuModule added !")
+        self.logging.info("CpuModule added !")
 
-    '''
-        ��ȡcpu��Ϣ
-    '''
+    def list(self):
+        return {"type": "Cpu", "items": [{"name": "cpu状态信息", "function": "getCpuInfo"}]}
+
+        '''
+            cpu状态信息
+        '''
 
     def getCpuInfo(self):
-        return psutil.cpu_times(percpu=True)
+        return json.dumps(psutil.cpu_times(percpu=True))
+
+
+print CpuModule().getCpuInfo()

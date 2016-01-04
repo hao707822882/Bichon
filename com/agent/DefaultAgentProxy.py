@@ -22,21 +22,32 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/1
-#  Time: 15:06
+#  Date: 2015/12/21
+#  Time: 18:19
 
+from com.agent import AgentProxy
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
-import psutil
+from com.Config import Config
 
 __author__ = 'Administrator'
 
-export = []
 
+class DefaultAgentProxy(AgentProxy, BaseLoggingObj):
+    def __init__(self, config=Config):
+        BaseLoggingObj.__init__(self, config=config)
+        self.logging.info("init DefaultAgent from file %s", __file__);
 
-class ServiceModule(BaseLoggingObj, object):
-    def __init__(self):
-        self.logging.log("create ServiceModule !")
+    @logger
+    def list(self):
+        return ["cpu", "net"]
 
-    def getServiceInfo(self):
-        return
+    @logger
+    def cpu(self):
+        return {"cores": [{"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"},
+                          {"sys": "0.1", "us": "30"}]}
+
+    @logger
+    def net(self):
+        return {"eth": [{"in": "100k", "out": "500"}, {"in": "100k", "out": "500"}, {"in": "100k", "out": "500"},
+                        {"in": "100k", "out": "500"}]}

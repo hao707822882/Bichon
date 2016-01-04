@@ -27,10 +27,7 @@
 
 
 __author__ = 'Administrator'
+import xmlrpclib
 
-from com.common.broker.DefaultBroker import DefaultBroker
-
-broker = DefaultBroker(agents=[{"host": "127.0.0.1", "port": "8000"}])
-
-print broker.action("127.0.0.1", "net")
-print broker.action("127.0.0.1", "cpu")
+proxy = xmlrpclib.ServerProxy("http://%s:%s/" % ("127.0.0.1", "8000"))
+print str(proxy.getNetInfo()).encode("utf-8")

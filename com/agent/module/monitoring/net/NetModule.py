@@ -27,28 +27,19 @@
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
+import json
 import psutil
 
 __author__ = 'Administrator'
 
-export = [{"存储信息": "getDiskInfo"}]
 
-
-class DiskModule(BaseLoggingObj, object):
+class NetModule(BaseLoggingObj, object):
     def __init__(self):
-        pass
+        BaseLoggingObj.__init__(self)
+        self.logging.info("create NetModule")
 
-    def __getDiskPartitionInfo(self):
-        return psutil.disk_partitions()
+    def list(self):
+        return {"type": "Net", "items": [{"name": "网卡信息", "function": "getNetInfo"}]}
 
-    def __getDiskPartitionUsageInfo(self, path):
-        return psutil.disk_usage(path)
-
-    def getDiskInfo(self):
-        diskInfo = []
-        partitions = self.__getDiskPartitionInfo()
-        for partition in partitions:
-            diskInfo.append(self.__getDiskPartitionUsageInfo(partition[0]))
-        return diskInfo
-
-
+    def getNetInfo(self):
+        return json.dumps(psutil.net_io_counters(pernic=True), encoding="mbcs")

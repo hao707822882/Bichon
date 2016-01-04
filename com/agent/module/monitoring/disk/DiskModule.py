@@ -22,32 +22,37 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/21
-#  Time: 18:19
+#  Date: 2016/1/1
+#  Time: 15:06
 
-from com.common.agent.AbsAgentProxy import AgentProxy
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
-from com.Config import Config
+import json
+import psutil
 
 __author__ = 'Administrator'
 
 
-class DefaultAgentProxy(AgentProxy, BaseLoggingObj):
-    def __init__(self, config=Config):
-        BaseLoggingObj.__init__(self, config=config)
-        self.logging.info("init DefaultAgent from file %s", __file__);
+class DiskModule(BaseLoggingObj, object):
+    def __init__(self):
+        BaseLoggingObj.__init__(self)
+        self.logging.info("DiskModule added")
 
-    @logger
     def list(self):
-        return ["cpu", "net"]
+        return {"type": "disk", "items": [{"name": "存储信息", "function": "getDiskInfo"}]}
 
-    @logger
-    def cpu(self):
-        return {"cores": [{"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"}, {"sys": "0.1", "us": "30"},
-                          {"sys": "0.1", "us": "30"}]}
+    def __getDiskPartitionInfo(self):
+        return psutil.disk_partitions()
 
-    @logger
-    def net(self):
-        return {"eth": [{"in": "100k", "out": "500"}, {"in": "100k", "out": "500"}, {"in": "100k", "out": "500"},
-                        {"in": "100k", "out": "500"}]}
+    def __getDiskPartitionUsageInfo(self, path):
+        return psutil.disk_usage(path)
+
+    def getDiskInfo(self):
+        diskInfo = []
+        partitions = self.__getDiskPartitionInfo()
+        for partition in partitions:
+            diskInfo.append({"partition": partition[0], "detail": self.__getDiskPartitionUsageInfo(partition[0])})
+        return json.dumps(diskInfo)
+
+
+DiskModule().getDiskInfo()

@@ -27,17 +27,19 @@
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
+import json
 import psutil
 
 __author__ = 'Administrator'
 
-export = [{"网卡信息": "getNetInfo"}]
 
-
-class NetModule(BaseLoggingObj, object):
+class MemModule(BaseLoggingObj, object):
     def __init__(self):
-        self.logging.log("create NetModule")
-        pass
+        BaseLoggingObj.__init__(self)
+        self.logging.info("create MemModule !")
 
-    def getNetInfo(self):
-        return psutil.net_io_counters(pernic=True)
+    def list(self):
+        return {"type": "Mem", "items": [{"name": "内存信息", "function": "getMemInfo"}]}
+
+    def getMemInfo(self):
+        return json.dumps(psutil.virtual_memory())

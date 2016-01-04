@@ -47,12 +47,5 @@ class DymUtil(object):
         return getattr(source, name)
 
     @staticmethod
-    def getModuleFromFile(mudelPath, name):
-        return __import__("com.common.agent.module.monitoring.cpu.CpuModule", fromlist=[mudelPath])
-
-
-obj = DymUtil.getModuleFromFile("F:\\sourceReading\\Bichon\\com\\common\\agent\\module\\monitoring\\cpu\\CpuModule.py","CpuModule")
-
-aClass = getattr(obj, "CpuModule")
-
-print(aClass().getCpuInfo())
+    def getModuleFromFile(mudelPath, package):
+        return __import__(package, fromlist=[mudelPath])

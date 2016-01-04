@@ -40,13 +40,14 @@ from abc import ABCMeta, abstractmethod
 class AbsBroker(BaseLoggingObj):
     __metaclass__ = ABCMeta
 
-    def __init__(self, agents=[], config=Config):
+    def __init__(self, config=Config):
         self.name = "bichon broker server"
         self.version = Config.version
         self.agents = {}
+        self.exportList = []
         self.errorAgents = []
-        self.initAgent(agents)
         self.logging.info("broker start over ......")
+        BaseLoggingObj.__init__(self, config)
 
     @abstractmethod
     def initAgent(self):

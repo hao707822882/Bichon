@@ -26,22 +26,18 @@
 #  Time: 18:19
 
 from com.common.fileSystem.FileSystemUtil import FileSystemUtil
-from com.common.dymFun.Dym import DymUtil
 from com.common.BaseLoggingObj import BaseLoggingObj
+from com.Config import Config
 import os
 
 __author__ = 'Administrator'
 
 
-class ModuleScanner(object, BaseLoggingObj):
+class ModuleScanner(BaseLoggingObj, object):
     moduleMap = {}
 
-    def __init__(self):
-        pass
-
-    '''
-        扫描目录下的py文件
-    '''
+    def __init__(self, config=Config):
+        BaseLoggingObj.__init__(self, config=config)
 
     def scan(self, path):
         parentPath = path
@@ -68,5 +64,3 @@ class ModuleScanner(object, BaseLoggingObj):
                         ModuleScanner.moduleMap.setdefault(mu_name, module)
             else:
                 self.scan(nowPath)
-
-

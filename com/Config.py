@@ -34,4 +34,4 @@ class Config(object):
     logging_level = logging.DEBUG
     logging_file = "D:\\log.txt"
     agent_port = 8000
-    module_path = "F:\\sourceReading\\Bichon\\com\\common\\agent\\module"
+    module_path = "F:\\sourceReading\\Bichon\\com\\agent\\module"
