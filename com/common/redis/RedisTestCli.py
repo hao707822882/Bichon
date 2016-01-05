@@ -22,21 +22,20 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/4
-#  Time: 18:01
+#  Date: 2016/1/5
+#  Time: 12:11
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.install.installer.AbsInstaller import AbsInstaller
-from com.Config import Config
 
 __author__ = 'Administrator'
+import redis
 
 
-class NginxInstaller(BaseLoggingObj, AbsInstaller, object):
-    def install(self):
+class RedisPublisher(object):
+    def __init__(self, host, topic, **arg):
+        self.topic = topic
+        self.rc = redis.Redis(host=host, **arg)
+        ps = self.rc.pubsub()
+        ps.subscribe(topic)
 
-        pass
-
-    def __init__(self, config=Config):
-        BaseLoggingObj.__init__(self, config)
-        AbsInstaller.__init__(self)
+    def send(self, msg):
+        self.rc.publish(self.topic, msg)

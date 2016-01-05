@@ -1,0 +1,21 @@
+# _*_ coding:utf-8 _*_
+
+__author__ = 'Administrator'
+from apscheduler.schedulers.background import BackgroundScheduler
+
+
+class TimeScheduler(object):
+    def __init__(self):
+        self.tasks = {}
+        self.scheduler = BackgroundScheduler()
+        self.scheduler.start()
+
+    '''
+        task是一个函数
+    '''
+
+    def addJob(self, name, id, task, second, hour, day_of_week):
+        oldTask = self.tasks.get(name)
+        if oldTask is None:
+            self.tasks.setdefault(name, id)
+            self.scheduler.add_job(task, 'cron', second=second, hour=hour, day_of_week=day_of_week, id=id)

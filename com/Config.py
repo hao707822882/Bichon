@@ -34,5 +34,19 @@ class Config(object):
     logging_level = logging.DEBUG
     logging_file = "D:\\log.txt"
     agent_port = 8000
-    check_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"
-    install_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"
+    check_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 服务器检测模块
+    install_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 系统安装模块
+    uploadTempDir = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 文件上传目录（web）
+    redisHost = "127.0.0.1"
+    redisPort = "6379"
+    softServer = "http://127.0.0.1/"  # 软件下载服务器地址
+    softDownloadPath = "F:\\sourceReading\\Bichon\\com"  # 软件下载地址
+    softInstallDir = "/usr/local"
+    # 软件服务器列表
+    soft_java = "jdk-8u45-linux-x64.gz"
+
+
+
+
+    # 软件安装配置
+    mysqlRoot = "B8S7nVEvTCv4zxRa"

@@ -22,21 +22,24 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/4
-#  Time: 18:01
+#  Date: 2016/1/5
+#  Time: 12:11
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.install.installer.AbsInstaller import AbsInstaller
-from com.Config import Config
 
 __author__ = 'Administrator'
 
+from com.common.redis.RedisListenAbs import RedisListenAbs
+import time
 
-class NginxInstaller(BaseLoggingObj, AbsInstaller, object):
-    def install(self):
 
-        pass
+class RedisIpListen(RedisListenAbs, object):
+    def doing(self, data):
+        print(data)
 
-    def __init__(self, config=Config):
-        BaseLoggingObj.__init__(self, config)
-        AbsInstaller.__init__(self)
+    def __init__(self, topic):
+        RedisListenAbs.__init__(self, topic)
+
+
+RedisIpListen(["foo", "top"])
+
+time.sleep(5000)
