@@ -24,13 +24,12 @@
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2016/1/4
 #  Time: 18:01
-from com.install.installer.AbsInstaller import AbsInstaller
+import pexpect
+
+from com.install.absInstaller import AbsInstaller
 from com.common.execCommand.ExecUtil import ExecUtil
 from com.common.BaseLoggingObj import BaseLoggingObj
 from com.Config import Config
-import pexpect
-import os
-import sys
 
 '''
     yum安装：Is this ok [y/N]:

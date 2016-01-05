@@ -26,11 +26,12 @@
 #  Time: 18:02
 
 
+import os
+
 from com.common.BaseLoggingObj import BaseLoggingObj
-from com.install.installer.AbsInstaller import AbsInstaller
+from com.install.absInstaller import AbsInstaller
 from com.common.execCommand.ExecUtil import ExecUtil
 from com.Config import Config
-import os
 
 __author__ = 'Administrator'
 
