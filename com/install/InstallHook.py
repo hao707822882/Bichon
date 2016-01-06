@@ -47,5 +47,6 @@ class InstallHooker(BaseLoggingObj, object):
         ModuleScanner().scan()
 
     def initModule(self):
-        ms = ModuleScanner();
+        ms = ModuleScanner()
         self.module = ms.scan(self.config.install_module_path)
+

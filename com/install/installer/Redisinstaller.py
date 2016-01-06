@@ -34,7 +34,7 @@ from com.Config import Config
 __author__ = 'Administrator'
 
 
-class Redisinstaller(BaseLoggingObj, YumInstaller, object):
+class RedisInstaller(BaseLoggingObj, YumInstaller, object):
     def yumInstall(self):
         try:
             child = pexpect.spawnu('yum install redis')
@@ -53,3 +53,6 @@ class Redisinstaller(BaseLoggingObj, YumInstaller, object):
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
         YumInstaller.__init__(self)
+
+    def what(self):
+        return "redis"
