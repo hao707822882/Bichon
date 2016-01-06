@@ -53,3 +53,6 @@ class NginxInstaller(BaseLoggingObj, YumInstaller, object):
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
         YumInstaller.__init__(self)
+
+    def what(self):
+        return "nginx"

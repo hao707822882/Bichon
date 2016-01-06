@@ -60,3 +60,6 @@ class TomcatInstaller(BaseLoggingObj, TarInstaller, object):
 
     def unTar(self):
         tar_rt = ExecUtil.execCommand("tar zxvf " + self.downloadSavePath + " -C " + self.installPath)
+
+    def what(self):
+        return "tomcat"

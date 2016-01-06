@@ -53,6 +53,10 @@ class TarInstaller(AbsInstaller, object):
     def writeConfig(self):
         pass
 
+    @abstractmethod
+    def what(self):
+        pass
+
     def install(self):
         try:
             self.downloadTar()

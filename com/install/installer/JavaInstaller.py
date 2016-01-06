@@ -37,6 +37,9 @@ __author__ = 'Administrator'
 
 
 class JavaInstaller(BaseLoggingObj, TarInstaller, object):
+    def what(self):
+        return "java"
+
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
         TarInstaller.__init__(self)

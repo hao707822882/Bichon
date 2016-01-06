@@ -43,3 +43,7 @@ class YumInstaller(object):
     @abstractmethod
     def writeConfig(self):
         pass
+
+    @abstractmethod
+    def what(self):
+        pass

@@ -31,3 +31,6 @@ class MavenInstaller(BaseLoggingObj, TarInstaller, object):
 
     def unTar(self):
         pass
+
+    def what(self):
+        return "maven"

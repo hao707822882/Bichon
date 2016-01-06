@@ -57,3 +57,6 @@ class NFSInstaller(BaseLoggingObj, YumInstaller, object):
 
     def writeConfig(self):
         pass
+
+    def what(self):
+        return "nfs"

@@ -68,3 +68,6 @@ class MysqlInstaller(BaseLoggingObj, YumInstaller, object):
         f.write("log-error=/var/log/mysqld.log")
         f.write("pid-file=/var/run/mysqld/mysqld.pid")
         f.close()
+
+    def what(self):
+        return "mysql"
