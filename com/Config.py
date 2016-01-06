@@ -40,10 +40,12 @@ class Config(object):
     redisHost = "127.0.0.1"
     redisPort = "6379"
     softServer = "http://127.0.0.1/"  # 软件下载服务器地址
-    softDownloadPath = "F:\\sourceReading\\Bichon\\com"  # 软件下载地址
-    softInstallDir = "/usr/local"
+    softSavePath = "F:\\sourceReading\\Bichon\\com"  # 软件下载地址
+    softInstallPath = "/usr/local"
     # 软件服务器列表
     soft_java = "jdk-8u45-linux-x64.gz"
+    soft_maven = "maven-linux-x64.gz"
+    soft_tomcat = "tomcat7.0.tar.gz"
 
 
 
