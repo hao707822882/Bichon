@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
 #  　　　┏┓　　　┏┓
@@ -18,25 +19,23 @@
 #  　　　　┗┓┓┏━┳┓┏┛
 #  　　　　　┃┫┫　┃┫┫
 #  　　　　　┗┻┛　┗┻┛
-#  ━━━━━━感觉萌萌哒━━━━━━
-#  Module Desc:clover
+#  ━━━━━━感觉萌萌哒━━━━━━#  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
 #  Date: 2015/12/21
-#  Time: 11:35
-from com.Config import Config
+#  Time: 15:16
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.common.execCommand.ExecUtil import ExecUtil
-from com.backup.AbsBacker import AbsBacker
 
 __author__ = 'Administrator'
 
+from abc import ABCMeta, abstractmethod
 
-class MySqlBack(BaseLoggingObj, AbsBacker, object):
-    def back(self, user, pwd, db, savePath):
-        ExecUtil.execCommand(
-            " mysqldump -u" + user + " -p" + pwd + " -B --skip-lock-tables  " + db + " |gzip  > " + savePath + "/" + db + "`/bin/date +%F`.back.gz")
 
-    def __init__(self, config=Config):
-        BaseLoggingObj.__init__(self, config=config)
-        AbsBacker.__init__(self)
+class AbsBacker(object):
+    __metaclass__ = ABCMeta
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def back(self):
+        pass

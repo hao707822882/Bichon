@@ -25,7 +25,7 @@
 #  Date: 2016/1/5
 #  Time: 14:53
 '''
-    ������ʼ��
+    检测
 '''
 
 from com.common.BaseLoggingObj import BaseLoggingObj
@@ -46,11 +46,9 @@ class EnvironmentUtil(BaseLoggingObj, object):
         for path in needCheck:
             rt = os.path.exists(path)
             if not rt:
-                raise NameError(path + "�����ڣ�����������")
+                raise NameError(path + "没有配置")
 
         for path in autoCreate:
             rt = os.path.exists(path)
             if not rt:
                 os.makedirs(path)
-
-
