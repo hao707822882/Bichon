@@ -29,14 +29,26 @@
 import os
 
 from com.common.BaseLoggingObj import BaseLoggingObj
-from com.install.absInstaller import AbsInstaller
+from com.install.absInstaller.TarInstaller import TarInstaller
 from com.common.execCommand.ExecUtil import ExecUtil
 from com.Config import Config
 
 __author__ = 'Administrator'
 
 
-class JavaInstaller(BaseLoggingObj, AbsInstaller, object):
+class JavaInstaller(BaseLoggingObj, TarInstaller, object):
+    def unTar(self):
+        pass
+
+    def writeConfig(self):
+        pass
+
+    def downloadTar(self):
+        pass
+
+    def make(self):
+        pass
+
     def install(self):
         downloadPath = Config.softDownloadPath + os.path.sep + self.name
         downloadServerPath = Config.softServer + "/" + Config.soft_java
@@ -57,7 +69,7 @@ class JavaInstaller(BaseLoggingObj, AbsInstaller, object):
 
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
-        AbsInstaller.__init__(self)
+        TarInstaller.__init__(self,)
         self.name = "jdk1.8.64.tar.gz"
         self.logging.info("add JavaInstaller module!")
 
