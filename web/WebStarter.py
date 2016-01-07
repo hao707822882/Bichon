@@ -22,12 +22,20 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2015/12/22
-#  Time: 12:26
+#  Date: 2016/1/7
+#  Time: 11:48
 
 
-__author__ = 'Administrator'
+from flask import Flask
+from flask import abort, render_template, flash, app
 
-from com.check.agent.DefaultAgent import DefaultAgent
+app = Flask(__name__)
 
-agent = DefaultAgent()
+
+@app.route('/')
+def hello_world():
+    return render_template("archive.html", items=["xxx", "xxx"])
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

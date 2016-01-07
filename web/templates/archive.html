@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="../static/js/jquery.js"></script>
+    <script>
+
+        $(function () {
+            alert("xxx")
+        })
+    </script>
+</head>
+<body>
+<ul>
+    {% for post in items %}
+    <li class="archive">
+        <article>
+            <a href="/post/{{ post }}">{{ post}}</a>
+        </article>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
