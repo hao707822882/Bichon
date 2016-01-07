@@ -20,35 +20,22 @@
 #  　　　　　┃┫┫　┃┫┫
 #  　　　　　┗┻┛　┗┻┛
 #  ━━━━━━感觉萌萌哒━━━━━━#  Module Desc:clover
-#  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/5
-#  Time: 16:53
+#  Date: 2015/12/21
+#  Time: 15:16
 
-from abc import ABCMeta, abstractmethod
-from com.install.absInstaller.AbsInstaller import AbsInstaller
 
 __author__ = 'Administrator'
 
+from abc import ABCMeta, abstractmethod
 
-class YumInstaller(AbsInstaller, object):
-    def install(self):
-        self.yumInstall()
-        self.writeConfig()
 
+class AbsBacker(object):
     __metaclass__ = ABCMeta
 
     def __init__(self):
         pass
 
     @abstractmethod
-    def yumInstall(self):
-        pass
-
-    @abstractmethod
-    def writeConfig(self):
-        pass
-
-    @abstractmethod
-    def what(self):
+    def back(self):
         pass

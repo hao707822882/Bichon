@@ -26,9 +26,9 @@
 #  Time: 18:01
 import pexpect
 
-from com.install.absInstaller import AbsInstaller
 from com.common.execCommand.ExecUtil import ExecUtil
 from com.common.BaseLoggingObj import BaseLoggingObj
+from com.install.absInstaller.YumInstaller import YumInstaller
 from com.Config import Config
 
 '''
@@ -38,17 +38,9 @@ from com.Config import Config
 __author__ = 'Administrator'
 
 
-class MysqlInstaller(BaseLoggingObj, AbsInstaller, object):
-    def install(self):
-        child = pexpect.spawnu('yum install mysql-server')
-        child.expect('(?i)Is this ok [y/N]:')
-        child.sendline('y')
-        child.expect('(?i)Complete!')
-        child.sendline('yum install mysql-devel')
-        child.expect('(?i)Is this ok [y/N]: ')
-        child.sendline('y')
-        child.expect('Complete!')
-        child.sendline('yum install mysql')
+class MysqlInstaller(BaseLoggingObj, YumInstaller, object):
+    def yumInstall(self):
+        child = pexpect.spawnu('yum install mysql*')
         child.expect('(?i)Is this ok [y/N]:')
         child.sendline('y')
         child.expect('Complete!')
@@ -59,8 +51,8 @@ class MysqlInstaller(BaseLoggingObj, AbsInstaller, object):
         ExecUtil.execCommand("mysql -uroot -p" + Config.mysqlRoot + "-e select version()")
 
     def __init__(self, config=Config):
-        AbsInstaller.__init__(self)
         BaseLoggingObj.__init__(self, config)
+        YumInstaller.__init__(self)
 
     def writeConfig(self):
         f = open("/etc/my.cnf", 'w')
@@ -76,3 +68,6 @@ class MysqlInstaller(BaseLoggingObj, AbsInstaller, object):
         f.write("log-error=/var/log/mysqld.log")
         f.write("pid-file=/var/run/mysqld/mysqld.pid")
         f.close()
+
+    def what(self):
+        return "mysql"

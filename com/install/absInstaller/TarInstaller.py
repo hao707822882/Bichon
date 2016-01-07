@@ -56,8 +56,16 @@ class TarInstaller(AbsInstaller, object):
     def writeConfig(self):
         pass
 
+    @abstractmethod
+    def what(self):
+        pass
+
     def install(self):
-        self.downloadTar()
-        self.unTar()
-        self.make()
-        self.writeConfig()
+        try:
+            self.downloadTar()
+            self.unTar()
+            self.make()
+            self.writeConfig()
+            return True
+        except WindowsError, e:
+            return False

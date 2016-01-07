@@ -37,41 +37,34 @@ __author__ = 'Administrator'
 
 
 class JavaInstaller(BaseLoggingObj, TarInstaller, object):
-    def unTar(self):
-        pass
+    def __init__(self, config=Config):
+        BaseLoggingObj.__init__(self, config)
+        TarInstaller.__init__(self, )
+        self.name = "jdk1.8.64.tar.gz"
 
-    def writeConfig(self):
-        pass
-
-    def downloadTar(self):
-        pass
-
-    def make(self):
-        pass
-
-    def install(self):
-        downloadPath = Config.softDownloadPath + os.path.sep + self.name
-        downloadServerPath = Config.softServer + "/" + Config.soft_java
-        installPath = Config.softInstallDir + os.path.sep + "jdk1.8.0_45"  # 安装路径
-        down_rt = ExecUtil.execCommand("wget -O " + downloadPath + " " + downloadServerPath)
-        if not down_rt:
-            raise NameError("jdk下载失败")
-        tar_rt = ExecUtil.execCommand("tar zxvf " + downloadPath + " -C " + Config.softInstallDir)
-        if not tar_rt:
-            raise NameError("tar 解压失败")
-        f = open("/etc/profile", 'a')
-        f.write('export JAVA_HOME=' + installPath)
-        f.write("export PATH=$JAVA_HOME/bin:$PATH")
-        f.close()
-        source_rt = ExecUtil.execCommand("source /etc/profile")
-        if not source_rt:
-            raise NameError("source 环境变量失败")
+    def what(self):
+        return "java"
 
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)
-        TarInstaller.__init__(self,)
-        self.name = "jdk1.8.64.tar.gz"
+        TarInstaller.__init__(self)
+        self.downloadPath = Config.softServer + "/" + Config.soft_java
+        self.downloadSavePath = Config.softSavePath + "/" + Config.soft_java
+        self.installPath = Config.softInstallPath
         self.logging.info("add JavaInstaller module!")
 
+    def downloadTar(self):
+        down_rt = ExecUtil.execCommand("wget -O " + self.downloadSavePath + " " + self.downloadPath)
 
-JavaInstaller().install()
+    def writeConfig(self):
+        f = open("/etc/profile", 'a')
+        f.write('export JAVA_HOME=' + self.installPath + "/java")
+        f.write("export PATH=$JAVA_HOME/bin:$PATH")
+        f.close()
+        source_rt = ExecUtil.execCommand("source /etc/profile")
+
+    def make(self):
+        tar_rt = ExecUtil.execCommand("tar zxvf " + self.downloadSavePath + " -C " + self.installPath)
+
+    def unTar(self):
+        pass
