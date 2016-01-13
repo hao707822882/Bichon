@@ -1,0 +1,26 @@
+<div>
+    <row ng-show="needTableTool">
+        <col12>
+            <button-group-horizontal style="float: right">
+                <button ng-click="tableToolRest()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>重置
+                </button>
+            </button-group-horizontal>
+        </col12>
+    </row>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th ng-repeat="th in ths track by $index" ng-click="thClick(this,th,$index)">{{th.name}}</th>
+            <th ng-show="needUpdate">更新</th>
+            <th ng-show="needDelete">删除</th>
+        </tr>
+        <tr ng-repeat="tr in trs track by $index">
+            <td ng-repeat="th in ths" ng-click="tdClick(this,tr,$index)">{{tr[th.paramName]}}</td>
+            <td ng-show="needUpdate">
+                <button class="btn btn-default" ng-click="update(tr,$event.target)">更新</button>
+            </td>
+            <td ng-show="needDelete">
+                <button class="btn btn-default" ng-click="delete(tr,$event.target)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>

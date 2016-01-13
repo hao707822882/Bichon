@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Tao">
+<head>
+    <meta charset="UTF-8">
+    <title>BOOM运维管理</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="js/jquery.js"></script>
+    <script src="layer/layer.js"></script>
+
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="app/bootstrap/directive/bootstrapDirective.js"></script>
+    <script src="app/bootstrap/directive/bootStrapModule.js"></script>
+    <script src="js/jquery-upload.js"></script>
+    <script src="echart/echarts-all.js"></script>
+    <script src="app/echart/directive/echartAngular.js"></script>
+</head>
+<body ng-controller="indexController">
+<header-menu
+        menu="[{'name':'服务器：120.27.141.187','child':[{'name':'硬盘','url':'disk'},{'name':'内存','url':'mem'},{'name':'网络','url':'net'},{'name':'CPU','url':'cpu'}]}]"
+        logo="BOOM运维管理"></header-menu>
+<script>
+    var myAppModule = angular.module('Tao', ["ngRoute", "bootstrap", "bootStrapModule"]);
+</script>
+<script src="app/indexController.js"></script>
+<script src="app/indexViewController.js"></script>
+<script src="app/appCode/router/router.js"></script>
+</body>
+</html>

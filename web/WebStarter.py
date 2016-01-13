@@ -27,14 +27,21 @@
 
 
 from flask import Flask
-from flask import abort, render_template, flash, app
+from flask import abort, render_template, flash, app, jsonify
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    return render_template("archive.html", items=["xxx", "xxx"])
+    return render_template("/static/index.html", items=["xxx", "xxx"])
+
+
+@app.route('/all/getall')
+def hello_world1():
+    b = [{"value": 335, "name": ""}, {"value": 310, "name": "xxx"}, {"value": 234, "name": "xxxx"},
+         {"value": 135, "name": "xxxxx"}, {"value": 1548, "name": "xxxxxx"}]
+    return jsonify(result=b)
 
 
 if __name__ == '__main__':
