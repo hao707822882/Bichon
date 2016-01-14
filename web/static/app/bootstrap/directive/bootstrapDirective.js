@@ -444,6 +444,7 @@ BootStrapStarter.directive("progressBootStrap", function () {
         replace: true,
         scope: {
             "width": "@",
+            "data": "@",
         },
         templateUrl: "/static/app/bootstrap/template/progress/progress.html",
     }

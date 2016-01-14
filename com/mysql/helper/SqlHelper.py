@@ -17,7 +17,7 @@ class SqlHelper(BaseLoggingObj):
     def __excute(cursor, command):
         if command == None:
             return []
-        data = [];
+        data = []
         for sql in command:
             cursor.execute(sql)
             d = SqlHelper.__fetchAll(cursor)
@@ -47,6 +47,11 @@ class SqlHelper(BaseLoggingObj):
         db.close()
         if data is not None:
             return data
+
+    @staticmethod
+    def getCon(host="127.0.0.1", user="root", passwd="123456", charset="utf8"):
+        return MySQLdb.connect(host=host, user=user, passwd=passwd,
+                               cursorclass=MySQLdb.cursors.DictCursor, charset=charset)
 
     def do(self, sql):
         try:

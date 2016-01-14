@@ -1,6 +1,35 @@
-<table-module
-        url="/bgm/getAll"
-        ths="[{'name':'ID','paramName':'id'},{'name':'BGM名字','paramName':'name'},{'name':'保存文件名','paramName':'fileName'},{'name':'添加时间','paramName':'addTime'}]"
-        delete="/admin/deleteBGM"
-        update="/admin/updateBGM"
-        need-delete need-update need-pagination need-table-tool></table-module>
+<row>
+    <panel head="总内存消耗">
+        <row>
+            <col12>
+                <progress-boot-strap width="15" data=""></progress-boot-strap>
+            </col12>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>单位为KB</th>
+                    <th>进程ID</th>
+                    <th>进程启动命令</th>
+                    <th>占用内存量</th>
+                </tr>
+                <tr>
+                    <td>index</td>
+                    <td>0</td>
+                    <td>init</td>
+                    <td>100KB</td>
+                </tr>
+                <tr>
+                    <td>index</td>
+                    <td>0</td>
+                    <td>init</td>
+                    <td>100KB</td>
+                </tr>
+                <tr>
+                    <td>index</td>
+                    <td>0</td>
+                    <td>init</td>
+                    <td>100KB</td>
+                </tr>
+            </table>
+        </row>
+    </panel>
+</row>

@@ -1,17 +1,4 @@
-<row>
-    <col12>
-        <form-inline-horizontal>
-            <input-container>
-                <input-lab lab="BGMName" id="name"></input-lab>
-                <input input-class type="text" id="name" name="name" ng-model="saveData.name">
-            </input-container>
-
-            <input-container>
-                <input-lab lab="BGMFile" id="ss"></input-lab>
-                <input input-class type="file" id="file" name="BGMFile">
-                <btn ng-click="upload($event.target)"><span class="glyphicon glyphicon-plus">上传</span></btn>
-                <btn ng-click="submitBGM()"><span class="glyphicon glyphicon-ok">提交</span></btn>
-            </input-container>
-        </form-inline-horizontal>
-    </col12>
-</row>
+<panel head="网卡实时流量">
+    <echart-line echartid="net" lineType="['网卡出口流量/单位为KB']" timeXLength="30"
+                 initDataPath="/static/app/echart/template/line.json" width="1400" height="400" timex="true"></echart-line>
+</panel>

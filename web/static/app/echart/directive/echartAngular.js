@@ -5,29 +5,27 @@ BootStrapStarter.directive("echartLine", function ($http) {
     return {
         restrict: 'EA',
         replace: true,
-        scope: { "echartid": "@"},
-        templateUrl: "app/echart/template/echart.html",
+        scope: {"echartid": "@"},
+        templateUrl: "/static/app/echart/template/echart.html",
         controller: function ($scope, $element, $attrs) {
             return true
         },
         link: function ($scope, $element, $attrs) {//加载数据
-            alert($element.attr("id"))
-            var initDataPath = $attrs.initdatapath
-            $scope.width = Number($attrs.width)
-            $scope.heigth = Number($attrs.heigth)
-            var xLine = eval("(" + $attrs.xline + ")");
-            var lineLab = eval("(" + $attrs.linetype + ")");
-            var initDate = [];
+            //（1）是不是动态数据
+            //（1-1）生成x轴，获取初始数据
+            //生成X轴坐标
+            function generate(length) {
+                var now = new Date();
+                var res = [];
+                while (length--) {
+                    res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                    now = new Date(now - 2000);
+                }
+                return res;
+            }
 
-            $http.get(initDataPath).success(function () {
-                $(arguments[0]).each(function (index) {
-                    var temp = {}
-                    temp.name = lineLab[index]
-                    temp.type = "bar"
-                    temp.data = this
-                    initDate.push(temp)
-                })
-                option1 = {
+            function getOption(lineLab, xLine, initDate) {
+                return {
                     tooltip: {
                         trigger: 'item'
                     },
@@ -48,13 +46,68 @@ BootStrapStarter.directive("echartLine", function ($http) {
                             splitArea: {show: true}
                         }
                     ],
-                    series: initDate
+                    series: [initDate]
                 }
+            }
+
+
+            var lineLab = eval("(" + $attrs.linetype + ")");
+
+
+            var timeX = $attrs.timex;
+            var timeXLength
+            if (timeX) {//处理动态数据
+                timeXLength = $attrs.timexlength;
+                if (!timeXLength)
+                    timeXLength = 30
+                xLine = generate(timeXLength)
+                initDate = (function (timeXLength) {
+                    var res = [];
+                    while (timeXLength--) {
+                        res.push(0)
+                    }
+                    var temp = {}
+                    temp.name = lineLab[0]
+                    temp.type = "line"
+                    temp.data = res
+                    return temp;
+                })(timeXLength)
+
                 var chart = echarts.init($element[0]);
-                chart.setOption(option1)
-            }).error(function () {
-                layer.msg("初始化诗句获取失败")
-            })
+                chart.setOption(getOption(lineLab, xLine, initDate))
+                setInterval(function () {
+                    var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+                    chart.addData([
+                        [
+                            0,        // 系列索引
+                            Math.round(Math.random() * 1000), // 新增数据
+                            false,     // 新增数据是否从队列头部插入
+                            false,     // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                            axisData
+                        ]
+                    ]);
+                }, 1000);
+
+            } else {//静态数据
+                var initDate = []
+                var initDataPath = $attrs.initdatapath
+                var xLine = eval("(" + $attrs.xline + ")");//x坐标轴
+                $http.get(initDataPath).success(function () {
+                    $(arguments[0]).each(function (index) {
+                        var temp = {}
+                        temp.name = lineLab[index]
+                        temp.type = "line"
+                        temp.data = this
+                        initDate.push(temp)
+                    })
+                    var chart = echarts.init($element[0]);
+                    chart.setOption(getOption(lineLab, xLine, initDate))
+                }).error(function () {
+                    layer.msg("初始化诗句获取失败")
+                })
+            }
+
+
         }
     }
 })
@@ -66,7 +119,7 @@ BootStrapStarter.directive("echartPie", function ($http) {
         scope: {
             "echartid": "@"
         },
-        templateUrl: "app/echart/template/echart.html",
+        templateUrl: "/static/app/echart/template/echart.html",
         controller: function ($scope, $element, $attrs) {
             return true
         },
@@ -140,7 +193,7 @@ BootStrapStarter.directive("echartGraph", function ($http) {
         restrict: 'EA',
         replace: true,
         scope: {"echartid": "@"},
-        templateUrl: "app/echart/template/echart.html",
+        templateUrl: "/static/app/echart/template/echart.html",
         controller: function ($scope, $element, $attrs) {
             return true
         },

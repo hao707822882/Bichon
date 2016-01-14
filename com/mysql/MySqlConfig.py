@@ -2,8 +2,8 @@ __author__ = 'Administrator'
 
 
 class MySqlConfig(object):
-    name = "boom"
-    password = "BoHdr8XjAwUHsHKD"
-    db = "test"
-    hostName = "120.27.141.187"
+    name = "root"
+    password = "123456"
+    db = "bichon"
+    hostName = "127.0.0.1"
     charset = "utf8"

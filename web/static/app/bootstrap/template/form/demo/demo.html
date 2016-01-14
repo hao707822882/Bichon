@@ -1,3 +1,13 @@
-<form class="form-inline">
-    <email id="xxx" lab="xxx"></email>
-</form>
+<form-inline-horizontal>
+    <input-container>
+        <input-lab lab="BGMName" id="name"></input-lab>
+        <input input-class type="text" id="name" name="name" ng-model="saveData.name">
+    </input-container>
+
+    <input-container>
+        <input-lab lab="BGMFile" id="ss"></input-lab>
+        <input input-class type="file" id="file" name="BGMFile">
+        <btn ng-click="upload($event.target)"><span class="glyphicon glyphicon-plus">上传</span></btn>
+        <btn ng-click="submitBGM()"><span class="glyphicon glyphicon-ok">提交</span></btn>
+    </input-container>
+</form-inline-horizontal>
