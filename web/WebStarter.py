@@ -41,7 +41,8 @@ def index():
 
 @app.route('/server/getAll')
 def getAllServer():
-    return jsonify(data=dao.selectServer()[0])
+    server = dao.selectServer()[0]
+    return jsonify(data=dao.selectServer()[0], pages=len(server))
 
 
 @app.route('/service/<int:serverId>')

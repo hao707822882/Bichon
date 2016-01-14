@@ -30,6 +30,9 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
         }).when('/command', {
             templateUrl: '/static/app/template/monitor/command.html',
             controller: 'indexViewController'
+        }).when('/server', {
+            templateUrl: '/static/app/template/server/server.html',
+            controller: 'indexViewController'
         }).
         otherwise({
             redirectTo: '/disk'
