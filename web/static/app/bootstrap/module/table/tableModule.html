@@ -1,0 +1,41 @@
+<div>
+    <panel head="{{head}}">
+        <row ng-show="needSearhForm">
+            <col12>
+                <form-inline-horizontal>
+                    <input-container>
+                        <input-lab lab="名字" id="name"></input-lab>
+                        <input input-class type="text" id="name" name="name" ng-model="searchData.name">
+                    </input-container>
+                    <input-container>
+                        <input-lab lab="性别" id="sex"></input-lab>
+                        <input input-class type="text" id="sex" name="sex" ng-model="searchData.sex">
+                    </input-container>
+                    <btn ng-click="search($event.target)"><span class="glyphicon glyphicon-zoom-in">检索！</span></btn>
+                </form-inline-horizontal>
+            </col12>
+        </row>
+        <table-component>
+        </table-component>
+        <row>
+            <col12>
+                <pagination></pagination>
+            </col12>
+        </row>
+
+        <boot-strap-dialog dialog-id="myModal">
+            <dialogbody>
+                <table class="table table-hover">
+                    <tr ng-repeat="th in ths">
+                        <td>{{th.name}}</td>
+                        <td><input type="text" ng-model="updateData[th.paramName]"></td>
+                    </tr>
+                </table>
+            </dialogbody>
+            <dialogfooter>
+                <button type="button" class="btn btn-default" ng-click="dialogCancel()">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="dialogOk()">Save changes</button>
+            </dialogfooter>
+        </boot-strap-dialog>
+    </panel>
+</div>

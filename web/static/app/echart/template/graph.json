@@ -1,0 +1,11 @@
+[
+  {"source" :"小名", "target" : "小朱","name": "女儿"},
+  {"source" : "小名1", "target" : "小朱", "name": "父亲"},
+  {"source" : "3小名", "target" : "小朱", "name":"母亲"},
+  {"source" : "4小名", "target" : "小朱"},
+  {"source" : "5小名", "target" : "小朱","name": "合伙人"},
+  {"source" : "6小名", "target" : "小朱"},
+  {"source" : "7小名", "target" : "小朱", "name": "竞争对手"},
+  {"source" : "8小名", "target" : "小朱", "name": "爱将"},
+  {"source" : "9小名", "target" : "小朱"}
+]

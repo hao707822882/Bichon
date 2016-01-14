@@ -1,0 +1,62 @@
+<row>
+    <panel head="安全服务">
+        <form-inline-horizontal>
+            <input-container>
+                <label for="antivirus">（1）病毒扫描</label>
+                <input type="file" id="antivirus" input-class placeholder="杀毒路径"/>
+                <btn><span class="glyphicon glyphicon-ok">查杀</span></btn>
+            </input-container>
+        </form-inline-horizontal>
+        <row>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <strong>Warning!</strong> Better check yourself, you're not looking too good.
+            </div>
+        </row>
+    </panel>
+    <panel head="防火墙服务">
+        <form-inline-horizontal>
+            <input-container>
+                <label for="iptables">（2）端口服务</label>
+                <input type="text" id="iptables" input-class placeholder="端口"/>
+                <select input-class multiple>
+                    <option>关闭</option>
+                    <option>打开</option>
+                </select>
+                <btn><span class="glyphicon glyphicon-ok">执行</span></btn>
+            </input-container>
+        </form-inline-horizontal>
+        <row>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <strong>Warning!</strong> Better check yourself, you're not looking too good.
+            </div>
+        </row>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>端口</th>
+                <th>IN/OUT</th>
+                <th>状态</th>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>IN</td>
+                <td>ACCEPT</td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>OUT</td>
+                <td>ACCEPT</td>
+            </tr>
+
+            <tr>
+                <td>3306</td>
+                <td>IN</td>
+                <td>ACCEPT</td>
+            </tr>
+            <tr>
+                <td>3306</td>
+                <td>OUT</td>
+                <td>ACCEPT</td>
+            </tr>
+        </table>
+    </panel>
+</row>

@@ -1,0 +1,7 @@
+<nav ng-show="needPagination">
+    <ul class="pagination">
+        <li ng-class="{true: '', false: 'disabled '}[previousOk]" ng-click="paginationAction('previous')"><a href="javaScript:void(0)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        <li ng-repeat="pagination in paginations track by $index" swap ng-click="paginationAction($index,pagination)"><a href="javaScript:void(0)">{{pagination}}<span class="sr-only">(current)</span></a></li>
+        <li ng-class="{true: '', false: 'disabled '}[nextOk]" ng-click="paginationAction('next')"><a href="javaScript:void(0)" aria-label="Previous"><span aria-hidden="true">&raquo;;</span></a></li>
+    </ul>
+</nav>

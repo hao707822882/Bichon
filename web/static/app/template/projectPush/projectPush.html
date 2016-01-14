@@ -1,0 +1,38 @@
+<panel head="项目推送服务">
+    <form-inline-horizontal>
+        <input-container>
+            <label for="pushProject">（1）上传数据</label>
+            <input type="file" id="pushProject" input-class/>
+            <btn><span class="glyphicon glyphicon-cloud-upload">上传</span></btn>
+        </input-container>
+    </form-inline-horizontal>
+    <form-inline-horizontal>
+        <input-container>
+            <label for="pushDir">（1）数据推送</label>
+            <input type="text" id="pushDir" input-class style="width: 300px;"/>
+            <select ng-model="hosts" type="file" input-class multiple>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+            </select>
+            <btn><span class="glyphicon glyphicon-cloud-upload">推送</span></btn>
+        </input-container>
+    </form-inline-horizontal>
+    <form-inline-horizontal>
+        <input-container>
+            <label for="command">（1）远程执行</label>
+            <input type="text" id="command" input-class style="width: 300px;"/>
+            <select type="file" id="" input-class multiple>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+                <option>127.0.0.1</option>
+            </select>
+            <btn><span class="glyphicon glyphicon-cloud-upload">执行</span></btn>
+        </input-container>
+    </form-inline-horizontal>
+
+</panel>

@@ -27,14 +27,28 @@
 
 
 from flask import Flask
-from flask import abort, render_template, flash, app
+from flask import abort, render_template, flash, app, jsonify, redirect
+from web.dao.BichonDao import BichonDao
 
+dao = BichonDao()
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return render_template("archive.html", items=["xxx", "xxx"])
+def index():
+    return redirect("/static/index.html#/disk")
+
+
+@app.route('/server/getAll')
+def getAllServer():
+    server = dao.selectServer()[0]
+    return jsonify(data=dao.selectServer()[0], pages=len(server))
+
+
+@app.route('/service/<int:serverId>')
+def getAllService(serverId=1):
+    services = dao.selectService(serverId)
+    return jsonify(data=services[0], pages=len(services))
 
 
 if __name__ == '__main__':
