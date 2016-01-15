@@ -18,8 +18,9 @@
     <script src="app/echart/directive/echartAngular.js"></script>
 </head>
 <body ng-controller="indexController">
+
 <header-menu
-        menu="[{'name':'服务器：120.27.141.187','child':[{'name':'硬盘','url':'disk'},{'name':'内存','url':'mem'},{'name':'网络','url':'net'},{'name':'CPU','url':'cpu'},{'name':'服务状态','url':'service'},{'name':'安装管理','url':'install'},{'name':'安全管理','url':'security'},{'name':'命令执行','url':'command'}]},{'name':'项目管理','child':[{'name':'项目推送','url':'projectPush'}]},{'name':'服务器管理','child':[{'name':'服务器管理','url':'server'}]}]"
+        menu="[{'name':'服务器：120.27.141.187','child':[{'name':'硬盘','url':'disk'},{'name':'内存','url':'mem'},{'name':'网络','url':'net'},{'name':'CPU','url':'cpu'},{'name':'服务状态','url':'service'},{'name':'安装管理','url':'install'},{'name':'安全管理','url':'security'},{'name':'命令执行','url':'command'}]},{'name':'项目管理','child':[{'name':'项目推送','url':'projectPush'}]},{'name':'服务器管理','child':[{'name':'服务器管理','url':'server'}]},{'name':'配置管理','child':[{'name':'配置管理','url':'config'}]}]"
         logo="BOOM运维管理"></header-menu>
 <script>
     var myAppModule = angular.module('Tao', ["ngRoute", "bootstrap", "bootStrapModule"]);

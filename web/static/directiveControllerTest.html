@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Tao">
+<head>
+    <meta charset="UTF-8">
+    <title>BOOM运维管理</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="js/jquery.js"></script>
+    <script src="layer/layer.js"></script>
+
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="app/bootstrap/directive/bootstrapDirective.js"></script>
+    <script src="app/bootstrap/directive/bootStrapModule.js"></script>
+    <script src="js/jquery-upload.js"></script>
+</head>
+
+<body ng-controller="indexController">
+<auto-form></auto-form>
+<script>
+    var myAppModule = angular.module('Tao', ["bootstrap"]);
+</script>
+<script src="app/indexController.js"></script>
+</body>
+</html>

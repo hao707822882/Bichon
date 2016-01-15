@@ -30,7 +30,7 @@ from flask import Flask
 from flask import abort, render_template, flash, app, jsonify, redirect
 from web.dao.BichonDao import BichonDao
 
-dao = BichonDao()
+# dao = BichonDao()
 app = Flask(__name__)
 
 
