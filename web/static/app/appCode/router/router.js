@@ -33,6 +33,9 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
         }).when('/server', {
             templateUrl: '/static/app/template/server/server.html',
             controller: 'indexViewController'
+        }).when('/config', {
+            templateUrl: '/static/app/template/config/config.html',
+            controller: 'indexViewController'
         }).
         otherwise({
             redirectTo: '/disk'

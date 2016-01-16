@@ -187,6 +187,76 @@ BootStrapStarter.directive("formInlineHorizontal", function () {
     }
 })
 
+
+/**
+ * 上传控件
+ */
+BootStrapStarter.directive("myUpload", function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: "/static/app/bootstrap/template/form/upload.html",
+        scope: {"uploadPath": "@", "uploadInputId": "@"},
+        require: "^autoForm",
+        link: function ($scope, $element, $attrs, autoForm) {
+            //获取父scope
+            formScope = autoForm.formModelScope();
+            //设置上传配置
+            function setUploadConfig(uploadPath, success, error) {
+                $.fn.upload.defaults = {
+                    // 留空表示提交到当前页面
+                    action: uploadPath,
+                    // 头信息
+                    headers: {},
+                    // 传递额外数据（键值对字符串）
+                    data: null,
+                    // 留空表示默认读取表单文件的name值
+                    name: "",
+                    // 完成回调，无论成功还是失败
+                    oncomplete: $.noop,
+                    // 成功回调
+                    onsuccess: success,
+                    // 失败回调
+                    onerror: error,
+                    // 进度回调
+                    onprogress: $.noop
+                };
+            }
+
+            //上传点击按钮
+            $scope.auto_upload = function () {
+                setUploadConfig($scope.uploadPath, formScope.uploadSuccess, formScope.uploadError)
+                $("#" + $scope.uploadInputId).upload()
+            }
+
+        }
+    }
+})
+
+/**
+ * controller测试
+ */
+BootStrapStarter.directive("autoForm", function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {},
+        templateUrl: "/static/app/bootstrap/template/form/form.html",
+        link: function ($scope, $element, $attrs) {//点击改变状态
+            $scope.cli = function () {
+                alert("xxx")
+                args.alert("xxxx")
+            }
+        },
+        controller: function ($scope) {
+            this.formModelScope = function () {//将夫scope的值传递给嵌套的scope
+                return $scope
+            }
+        }
+    }
+})
+
+
 BootStrapStarter.directive("formHorizontal", function () {
     return {
         restrict: 'E',
@@ -536,6 +606,8 @@ BootStrapStarter.directive("swap", function ($http) {
         }
     }
 })
+
+
 /*BootStrapStarter.directive("tab", function () {
  return {
  restrict: 'E',
