@@ -233,29 +233,49 @@ BootStrapStarter.directive("myUpload", function () {
     }
 })
 
+
 /**
- * controller测试
+ * input控件
  */
-BootStrapStarter.directive("autoForm", function () {
+BootStrapStarter.directive("myInput", function () {
     return {
         restrict: 'E',
         replace: true,
-        scope: {},
-        templateUrl: "/static/app/bootstrap/template/form/form.html",
-        link: function ($scope, $element, $attrs) {//点击改变状态
-            $scope.cli = function () {
-                alert("xxx")
-                args.alert("xxxx")
-            }
-        },
-        controller: function ($scope) {
-            this.formModelScope = function () {//将夫scope的值传递给嵌套的scope
-                return $scope
-            }
+        templateUrl: "/static/app/bootstrap/template/form/input.html",
+        link: function ($scope, $element, $attrs, autoForm) {
+            $scope.id = $attrs.id
+            $scope.lab = $attrs.lab
+            $scope.type = $attrs.type
+            $scope.placeholder = $attrs.placeholder
+            $scope.name = $attrs.name
+
+            $element.find("input").on('blur keyup change', function () {
+
+            });
+
+
         }
     }
 })
 
+/**
+ * input控件
+ */
+BootStrapStarter.directive("myCheckbox", function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: "/static/app/bootstrap/template/form/input.html",
+        link: function ($scope, $element, $attrs, autoForm) {
+            $scope.id = $attrs.id
+            $scope.type = "checkbox"
+            $scope.value = $attrs.value
+            $scope.display = $attrs.display
+
+
+        }
+    }
+})
 
 BootStrapStarter.directive("formHorizontal", function () {
     return {
