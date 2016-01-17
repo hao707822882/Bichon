@@ -295,11 +295,23 @@ bootStrapModuleStarter.directive("headerMenu", function ($http) {
 
             $scope.menuClick = function (index) {//更换当前的子菜单
                 $scope.menuSub = msSub[index]
+                $scope.menuSub[0].url
+                window.location.href = "/static/index.html#/" + $scope.menuSub[0].url
+            }
+
+            $scope.hosts = ["127.0.0.1", "127.0.0.12", "127.0.0.13", "127.0.0.14"]
+
+            $scope.host=$scope.hosts[0]
+
+            $scope.changHost = function (host) {
+                $scope.host = host
+
             }
 
             $scope.$evalAsync(function () {
-                window.location.href = "/static/index.html#/save"
+                window.location.href = "/static/index.html#/" + $scope.menuSub[0].url
             })
+
 
         }
     }

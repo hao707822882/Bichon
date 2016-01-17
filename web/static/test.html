@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Tao">
+<head>
+    <meta charset="UTF-8">
+    <title>BOOM运维管理</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="js/jquery.js"></script>
+    <script src="layer/layer.js"></script>
+
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="app/bootstrap/directive/bootstrapDirective.js"></script>
+    <script src="app/bootstrap/directive/bootStrapModule.js"></script>
+    <script src="js/jquery-upload.js"></script>
+    <script src="echart/echarts-all.js"></script>
+    <script src="app/echart/directive/echartAngular.js"></script>
+</head>
+<body ng-controller="indexController">
+<form-horizontal>
+    <my-input id="name" lab="名字" name="name" type="input" placeholder="请输入名字"></my-input>
+    <my-input id="age" lab="年龄" name="age" type="input" placeholder="请输入年龄"></my-input>
+    <my-input id="hobby" lab="爱好" name="hobby" type="input" placeholder="请输入爱好"></my-input>
+    <input-container>
+        <my-radio id="sexMan" lab="性别:男" value="man" name="sex"></my-radio>
+        <my-radio id="sexWoman" lab="性别:女" value="woman" name="sex"></my-radio>
+    </input-container>
+    <input-container>
+        <my-checkbox id="app" lab="苹果" value="app" name="fruit"></my-checkbox>
+        <my-checkbox id="orange" lab="橘子" value="orange" name="fruit"></my-checkbox>
+    </input-container>
+    <my-upload></my-upload>
+    <my-select id="app1" lab="喜欢的地方" name="place"
+               options="[{value:'sh',text:'上海'},{value:'nt',text:'南通'},{value:'cq',text:'重庆'}]"
+               multiple="true"></my-select>
+    <input-container>
+        <btn ng-click="show()">提交</btn>
+    </input-container>
+</form-horizontal>
+<script>
+    var myAppModule = angular.module('Tao', ["ngRoute", "bootstrap", "bootStrapModule"]);
+</script>
+<script src="app/indexController.js"></script>
+</body>
+</html>
