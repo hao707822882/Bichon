@@ -5,6 +5,11 @@ from com.common.execCommand.ExecUtil import ExecUtil
 __author__ = 'Administrator'
 
 
+class t(object):
+    def __init__(self):
+        self.aa = ""
+
+
 class IptablesSecurity(object):
     def __init__(self):
         pass

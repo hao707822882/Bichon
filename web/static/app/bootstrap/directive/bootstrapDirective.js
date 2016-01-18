@@ -192,66 +192,299 @@ BootStrapStarter.directive("formInlineHorizontal", function () {
  * 上传控件
  */
 BootStrapStarter.directive("myUpload", function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: "/static/app/bootstrap/template/form/upload.html",
+            link: function ($scope, $element, $attrs) {
+
+                var id = $attrs.id
+                var lab = $attrs.lab
+                var type = "file"
+                var name = $attrs.name
+                var uploadPath = $attrs.uploadPath
+
+                //上传element
+                var label = $element.find("label")
+                var input = $element.find("input")
+
+                //设置上传配置
+                function setUploadConfig(uploadPath, success, error) {
+                    $.fn.upload.defaults = {
+                        // 留空表示提交到当前页面
+                        action: uploadPath,
+                        // 头信息
+                        headers: {},
+                        // 传递额外数据（键值对字符串）
+                        data: null,
+                        // 留空表示默认读取表单文件的name值
+                        name: "",
+                        // 完成回调，无论成功还是失败
+                        oncomplete: $.noop,
+                        // 成功回调
+                        onsuccess: function () {
+                            $scope.$apply(function () {
+                                success()
+                            })
+                        },
+                        // 失败回调
+                        onerror: function () {
+                            $scope.$apply(function () {
+                                error()
+                            })
+                        },
+                        // 进度回调
+                        onprogress: $.noop
+                    };
+                }
+
+                //确信上传回调ok, 如果没有回调也要写个空的
+                function enSureUploadCallBack() {
+                    if ($scope.uploadSuccess && $scope.uploadError) {
+                        alert("$scope.uploadSuccess && $scope.uploadError function must be defined!")
+                    }
+                }
+
+                function init() {
+                    enSureUploadCallBack()
+                    label.attr("for", id)
+                    label.text(lab)
+                    input.attr("id", id)
+                    input.attr("type", type)
+                    input.attr("name", name)
+                }
+
+                //上传点击按钮
+                $scope.auto_upload = function () {
+                    setUploadConfig(uploadPath, $scope.uploadSuccess, $scope.uploadError)
+                    $().upload()
+                }
+
+            }
+        }
+    }
+)
+
+
+/**
+ * input控件
+ */
+BootStrapStarter.directive("myInput", function () {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: "/static/app/bootstrap/template/form/upload.html",
-        scope: {"uploadPath": "@", "uploadInputId": "@"},
-        require: "^autoForm",
-        link: function ($scope, $element, $attrs, autoForm) {
-            //获取父scope
-            formScope = autoForm.formModelScope();
-            //设置上传配置
-            function setUploadConfig(uploadPath, success, error) {
-                $.fn.upload.defaults = {
-                    // 留空表示提交到当前页面
-                    action: uploadPath,
-                    // 头信息
-                    headers: {},
-                    // 传递额外数据（键值对字符串）
-                    data: null,
-                    // 留空表示默认读取表单文件的name值
-                    name: "",
-                    // 完成回调，无论成功还是失败
-                    oncomplete: $.noop,
-                    // 成功回调
-                    onsuccess: success,
-                    // 失败回调
-                    onerror: error,
-                    // 进度回调
-                    onprogress: $.noop
-                };
+        templateUrl: "/static/app/bootstrap/template/form/input.html",
+        link: function ($scope, $element, $attrs) {
+            var id = $attrs.id
+            var lab = $attrs.lab
+            var type = $attrs.type
+            var placeholder = $attrs.placeholder
+            var name = $attrs.name
+
+            function sureFoemData() {
+                if (!$scope.formData) {
+                    $scope.formData = {}
+                }
             }
 
-            //上传点击按钮
-            $scope.auto_upload = function () {
-                setUploadConfig($scope.uploadPath, formScope.uploadSuccess, formScope.uploadError)
-                $("#" + $scope.uploadInputId).upload()
+            function init() {
+                sureFoemData()
+                var label = $element.find("label")
+                label.attr("for", id)
+                label.text(lab)
+                var input = $element.find("input")
+                input.attr("id", id)
+                input.attr("type", type)
+                input.attr("placeholder", placeholder)
+                input.attr("name", name)
+                $element.find("input").on('blur keyup change', function () {
+                    var element = this
+                    $scope.say()
+                    $scope.$apply(function () {
+                        var sf = $scope.formData;
+                        sf[name] = $(element).val()
+                    })
+                });
             }
 
+            //初始化input组件
+            init()
         }
     }
 })
 
 /**
- * controller测试
+ * input控件
  */
-BootStrapStarter.directive("autoForm", function () {
+BootStrapStarter.directive("myCheckbox", function () {
     return {
         restrict: 'E',
         replace: true,
-        scope: {},
-        templateUrl: "/static/app/bootstrap/template/form/form.html",
-        link: function ($scope, $element, $attrs) {//点击改变状态
-            $scope.cli = function () {
-                alert("xxx")
-                args.alert("xxxx")
+        templateUrl: "/static/app/bootstrap/template/form/checkBox.html",
+        link: function ($scope, $element, $attrs, autoForm) {
+            var id = $attrs.id
+            var value = $attrs.value
+            var lab = $attrs.lab
+            var name = $attrs.name
+
+            function sureFoemData() {
+                //确认父容器的值容器
+                if (!$scope.formData) {
+                    $scope.formData = {}
+                }
+                //对选的容器
+                if (!$scope.formData[name]) {
+                    $scope.formData[name] = []
+                }
             }
-        },
-        controller: function ($scope) {
-            this.formModelScope = function () {//将夫scope的值传递给嵌套的scope
-                return $scope
+
+            function init() {
+                sureFoemData()
+                var label = $element.find("label")
+                label.attr("for", id)
+                label.text(lab)
+                var input = $element.find("input")
+                input.attr("id", id)
+                input.attr("name", name)
+                input.val(value)
+                $element.find("input").on('click', function () {
+                    var element = this
+                    $scope.say()
+                    $scope.$apply(function () {
+                        var sf = $scope.formData;
+                        var needAdd = true
+                        if (element.checked) {
+                            for (var data in sf[name]) {
+                                if (data == $(element).val()) {
+                                    needAdd = false
+                                }
+                            }
+                            if (needAdd)
+                                sf[name].push($(element).val())
+                        } else {
+                            $($scope.formData[name]).each(function (index) {
+                                if (this == $(element).val()) {
+                                    //如果这个值存在于值域中则删除
+                                    sf[name].splice(index, 1)
+                                }
+                            })
+                        }
+                    })
+                });
             }
+
+            init()
+        }
+    }
+})
+
+
+/**
+ * input控件
+ */
+BootStrapStarter.directive("myRadio", function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: "/static/app/bootstrap/template/form/radio.html",
+        link: function ($scope, $element, $attrs, autoForm) {
+            var id = $attrs.id
+            var value = $attrs.value
+            var lab = $attrs.lab
+            var name = $attrs.name
+
+            function sureFoemData() {
+                //确认父容器的值容器
+                if (!$scope.formData) {
+                    $scope.formData = {}
+                }
+            }
+
+            function init() {
+                sureFoemData()
+                var label = $element.find("label")
+                label.attr("for", id)
+                label.text(lab)
+                var input = $element.find("input")
+                input.attr("id", id)
+                input.attr("name", name)
+                input.val(value)
+                $element.find("input").on('click', function () {
+                    var element = this
+                    $scope.say()
+                    $scope.$apply(function () {
+                        if (element.checked) {
+                            var sf = $scope.formData
+                            sf[name] = $(element).val()
+                        }
+                    })
+                });
+            }
+
+            init()
+        }
+    }
+})
+
+
+/**
+ * select控件
+ */
+BootStrapStarter.directive("mySelect", function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: "/static/app/bootstrap/template/form/select.html",
+        link: function ($scope, $element, $attrs, autoForm) {
+            var id = $attrs.id
+            var lab = $attrs.lab
+            var name = $attrs.name
+            var option = eval("(" + $attrs.options + ")")//下拉列表项
+            var multiple = $attrs.multiple//多选
+
+            function sureFoemData() {
+                //确认父容器的值容器
+                if (!$scope.formData) {
+                    $scope.formData = {}
+                }
+                if (multiple) {
+                    if (!$scope.formData[name]) {
+                        $scope.formData[name] = []
+                    }
+                }
+            }
+
+            function init() {
+                sureFoemData()
+                var label = $element.find("label")
+                label.attr("for", id)
+                label.text(lab)
+                var select = $element.find("select")
+                if (multiple) {
+                    select.attr("multiple", true)
+                }
+                select.attr("id", id)
+                select.attr("name", name)
+                $(option).each(function () {
+                    //创建option
+                    select.append(
+                        $("<option/>").attr("value", this.value).text(this.text).on('blur keyup change click', function () {
+                            var selectOptions = select.find("option:selected")
+                            $scope.say()
+                            $scope.$apply(function () {
+                                var sf = $scope.formData;
+                                var data = []
+                                $(selectOptions).each(function () {
+                                    data.push($(this).val())
+                                })
+                                sf[name] = data;
+                            })
+                        })
+                    )
+                })
+            }
+
+            init()
         }
     }
 })
