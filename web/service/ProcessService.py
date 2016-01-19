@@ -22,30 +22,29 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/1
-#  Time: 15:06
+#  Date: 2016/1/19
+#  Time: 17:20
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.common.BaseLoggingObj import logger
-import json
-
-import psutil
+from web.broker.BrokerService import BrokerService
 
 __author__ = 'Administrator'
 
 
-class CpuModule(BaseLoggingObj, object):
+class ProcessService(object):
     def __init__(self):
-        BaseLoggingObj.__init__(self)
-        self.logging.info("CpuModule added !")
+        pass
 
-    def list(self):
-        return {"type": "Cpu", "items": [{"name": "cpu状态信息", "function": "getCpuInfo"}]}
+    def getPids(self, hostKey):
+        broker = BrokerService.getBroker(hostKey)
+        return broker.getPids()
 
-        '''
-            cpu状态信息
-        '''
+    def getProcessInfo(self, hostKey, processId):
+        broker = BrokerService.getBroker(hostKey)
+        return broker.getProcessInfo(processId)
 
-    def getCpuInfo(self):
-        data=psutil.cpu_times(percpu=True)
-        return json.dumps(data)
+    def getCusProcessInfo(self, hostKey, attrs=['pid', 'name', 'username', 'memory_info', 'cpu_times']):
+        broker = BrokerService.getBroker(hostKey)
+        return broker.getCusProcessInfo(attrs)
+
+
+print ProcessService().getCusProcessInfo("127.0.0.1")

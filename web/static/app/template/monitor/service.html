@@ -2,7 +2,26 @@
     <panel head="CPU繁忙状态">
         <row>
             <col12>
-                <progress-boot-strap width="56" data="CPU繁忙程度"></progress-boot-strap>
+                <form-inline-horizontal>
+                    <input-container>
+                        <label for="execType">execType</label>
+                        <input type="text" id="execType" input-class placeholder="命令类型"/>
+                    </input-container>
+                    <input-container>
+                        <label for="execCommand">命令或者参数</label>
+                        <input type="text" id="execCommand" input-class placeholder="命令或者参数"/>
+                    </input-container>
+                    <input-container>
+                        <label for="present">描述</label>
+                        <input type="text" id="present" input-class placeholder="服务描述"/>
+                    </input-container>
+                    <btn><span class="glyphicon glyphicon-ok">添加</span></btn>
+                </form-inline-horizontal>
+                <row>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                    </div>
+                </row>
             </col12>
 
             <table class="table table-striped table-hover">

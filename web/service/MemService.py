@@ -5,7 +5,7 @@ from web.broker.BrokerService import BrokerService
 __author__ = 'Administrator'
 
 
-class CpuService(object):
+class MemService(object):
     def __init__(self):
         pass
 
@@ -13,9 +13,4 @@ class CpuService(object):
 
     def getCpuStatue(self, hostKey):
         broker = BrokerService.getBroker(hostKey)
-        return broker.getCpuInfo()
-
-    def kill(self, hostKey, pid):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.shell("kill -9 " + pid)
-
+        return broker.getMemInfo()

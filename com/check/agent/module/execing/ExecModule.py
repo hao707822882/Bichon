@@ -22,30 +22,18 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/1
-#  Time: 15:06
+#  Date: 2016/1/19
+#  Time: 14:43
+'''命令执行模块'''
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.common.BaseLoggingObj import logger
-import json
-
-import psutil
+from com.common.execCommand.ExecUtil import ExecUtil
 
 __author__ = 'Administrator'
 
 
-class CpuModule(BaseLoggingObj, object):
+class ExecModule(object):
     def __init__(self):
-        BaseLoggingObj.__init__(self)
-        self.logging.info("CpuModule added !")
+        pass
 
-    def list(self):
-        return {"type": "Cpu", "items": [{"name": "cpu状态信息", "function": "getCpuInfo"}]}
-
-        '''
-            cpu状态信息
-        '''
-
-    def getCpuInfo(self):
-        data=psutil.cpu_times(percpu=True)
-        return json.dumps(data)
+    def execCmd(self, cmd):
+        return ExecUtil.execCommand(cmd)

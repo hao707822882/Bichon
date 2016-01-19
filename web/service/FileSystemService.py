@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 
-from web.broker.Brokers import Broker
+from web.broker.BrokerService import BrokerService
 
 __author__ = 'Administrator'
 
@@ -10,17 +10,17 @@ class FileSystemService(object):
         pass
 
     def partitionInfo(self, hostKey):
-        broker = Broker.getBroker(hostKey)
-        return broker.getPtitionInfo()
+        broker = BrokerService.getBroker(hostKey)
+        return broker.getDiskInfo()
 
     def ls(self, hostKey, path):
-        broker = Broker.getBroker(hostKey)
-        return broker.ls(path)
+        broker = BrokerService.getBroker(hostKey)
+        return broker.getPathDetail(path)
 
     def rm(self, hostKey, path):
-        broker = Broker.getBroker(hostKey)
+        broker = BrokerService.getBroker(hostKey)
         return broker.rm(path)
 
     def cp(self, hostKey, path):
-        broker = Broker.getBroker(hostKey)
+        broker = BrokerService.getBroker(hostKey)
         return broker.cp(path)

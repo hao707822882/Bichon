@@ -29,6 +29,7 @@ from com.common.BaseLoggingObj import BaseLoggingObj
 from com.common.BaseLoggingObj import logger
 import json
 import psutil
+import os
 
 __author__ = 'Administrator'
 
@@ -54,5 +55,8 @@ class DiskModule(BaseLoggingObj, object):
             diskInfo.append({"partition": partition[0], "detail": self.__getDiskPartitionUsageInfo(partition[0])})
         return json.dumps(diskInfo)
 
+    def getPathDetail(self, path):
+        '''传入路径必须是绝对路径'''
+        data = json.dumps(os.listdir(path), encoding="mbcs")
+        return data
 
-DiskModule().getDiskInfo()

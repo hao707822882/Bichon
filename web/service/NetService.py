@@ -1,5 +1,5 @@
 # _*_ coding:utf-8 _*_
-from web.broker.Brokers import Broker
+from web.broker.BrokerService import BrokerService
 
 __author__ = 'Administrator'
 
@@ -11,5 +11,5 @@ class NetService(object):
     '''获取net详细信息'''
 
     def getNetInfo(self, hostKey):
-        broker = Broker.getBroker(hostKey)
+        broker = BrokerService.getBroker(hostKey)
         return broker.getNetInfo()

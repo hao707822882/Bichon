@@ -22,30 +22,18 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/1
-#  Time: 15:06
+#  Date: 2016/1/19
+#  Time: 15:35
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.common.BaseLoggingObj import logger
-import json
 
-import psutil
+from web.broker.Brokers import Brokers
 
 __author__ = 'Administrator'
 
 
-class CpuModule(BaseLoggingObj, object):
-    def __init__(self):
-        BaseLoggingObj.__init__(self)
-        self.logging.info("CpuModule added !")
+class BrokerService(object):
+    brokers = Brokers()
 
-    def list(self):
-        return {"type": "Cpu", "items": [{"name": "cpu状态信息", "function": "getCpuInfo"}]}
-
-        '''
-            cpu状态信息
-        '''
-
-    def getCpuInfo(self):
-        data=psutil.cpu_times(percpu=True)
-        return json.dumps(data)
+    @staticmethod
+    def getBroker(key):
+        return BrokerService.brokers.getBroker(key)

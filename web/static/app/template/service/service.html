@@ -1,0 +1,34 @@
+<row>
+    <panel head="服务器管理">
+        <form-inline-horizontal>
+            <input-container>
+                <label for="execType">execType</label>
+                <input type="text" id="execType" input-class placeholder="命令类型"/>
+            </input-container>
+            <input-container>
+                <label for="execCommand">命令或者参数</label>
+                <input type="text" id="execCommand" input-class placeholder="命令或者参数"/>
+            </input-container>
+            <input-container>
+                <label for="present">描述</label>
+                <input type="text" id="present" input-class placeholder="服务描述"/>
+            </input-container>
+            <btn><span class="glyphicon glyphicon-ok">添加</span></btn>
+        </form-inline-horizontal>
+        <row>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <strong>Warning!</strong> Better check yourself, you're not looking too good.
+            </div>
+        </row>
+    </panel>
+    <panel head="服务器列表">
+        <row>
+            <table-module
+                    url="/server/getAll"
+                    ths="[{'name':'ID','paramName':'id'},{'name':'服务器host','paramName':'host'},{'name':'类型（LAB）','paramName':'lab'}]"
+                    delete="/admin/deleteBGM"
+                    update="/admin/updateBGM"
+                    need-delete need-update></table-module>
+        </row>
+    </panel>
+</row>
