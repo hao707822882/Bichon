@@ -31,7 +31,12 @@ from web.service.task.UrlTask import UrlTask
 from web.dao.BichonDao import BichonDao
 from web.service.TimerTaskService import TimerTaskService
 from web.service.CheckService import CheckService
+
 __author__ = 'Administrator'
+
+import logging
+
+logging.basicConfig()
 
 
 class TaskHelper(object):
@@ -62,8 +67,12 @@ class TaskHelper(object):
                                                  urlTask.check, "*/1", "*", "*")
 
 
-taskHelper = TaskHelper()
-taskHelper.initTasks()
+timerTaskService = TimerTaskService()
+urlTask = UrlTask("80", "www.baidu.com", "/", "baiduService")
+# timerTaskService.addJob("baiduService", "www.baidu.com:baiduService", urlTask.check, "*/1", "*", "*")
+urlTask1 = UrlTask("80", "school.iboom.tv", "/school/login.html", "schoolService")
+timerTaskService.addJob("schoolService", "school.iboom.tv/school/login.htmlschoolService", urlTask1.check, "*/1", "*",
+                        "*")
 
 while True:
     print CheckService.checkStatue

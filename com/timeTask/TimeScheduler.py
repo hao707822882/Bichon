@@ -6,9 +6,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 import time
 
-import logging
 
-logging.basicConfig()
 
 
 class TimeScheduler(object):

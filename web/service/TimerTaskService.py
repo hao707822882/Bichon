@@ -30,6 +30,9 @@ from com.timeTask.TimeScheduler import TimeScheduler
 __author__ = 'Administrator'
 
 
+import logging
+
+logging.basicConfig()
 class TimerTaskService(object):
     def __init__(self):
         self.timeScheduler = TimeScheduler()
