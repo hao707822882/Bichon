@@ -22,28 +22,24 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/19
-#  Time: 17:20
+#  Date: 2016/1/20
+#  Time: 14:31
 
-from web.broker.BrokerService import BrokerService
+from com.timeTask.TimeScheduler import TimeScheduler
 
 __author__ = 'Administrator'
 
 
-class ProcessService(object):
+class TimerTaskService(object):
     def __init__(self):
-        pass
+        self.timeScheduler = TimeScheduler()
 
-    def getPids(self, hostKey):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getPids()
+    def addJob(self, name, id, func, second, hour, dayOfWeek):
+        '''name:mysql服务，或者其他
+           id:host+name (唯一性)
+        '''
+        self.timeScheduler.addJob(name, id, func, second, hour, dayOfWeek)
 
-    def getProcessInfo(self, hostKey, processId):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getProcessInfo(processId)
-
-    def getCusProcessInfo(self, hostKey, attrs=['pid', 'name', 'username', 'memory_info', 'cpu_times']):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getCusProcessInfo(attrs)
-
-
+    def clean(self):
+        '''删除所有的任务'''
+        self.timeScheduler.clean()

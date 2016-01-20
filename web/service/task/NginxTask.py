@@ -22,28 +22,21 @@
 #  ━━━━━━感觉萌萌哒━━━━━━
 #  Module Desc:clover
 #  User: z.mm | 2428922347@qq.com
-#  Date: 2016/1/19
-#  Time: 17:20
+#  Date: 2016/1/20
+#  Time: 14:58
 
-from web.broker.BrokerService import BrokerService
+from web.service.CheckService import CheckService
 
 __author__ = 'Administrator'
 
 
-class ProcessService(object):
-    def __init__(self):
-        pass
+class NginxTask(object):
+    def __init__(self, port, host):
+        self.host = host
+        self.port = port
+        self.check = CheckService()
 
-    def getPids(self, hostKey):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getPids()
-
-    def getProcessInfo(self, hostKey, processId):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getProcessInfo(processId)
-
-    def getCusProcessInfo(self, hostKey, attrs=['pid', 'name', 'username', 'memory_info', 'cpu_times']):
-        broker = BrokerService.getBroker(hostKey)
-        return broker.getCusProcessInfo(attrs)
-
-
+    def check(self):
+        data = self.check.nginxCheck(self.host, port=self.port)
+        key = self.host + self.port + "nginx"
+        CheckService.checkStatue[key] = data

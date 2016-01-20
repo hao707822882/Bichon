@@ -33,14 +33,14 @@ from web.dao.BichonDao import BichonDao
 from web.service.CpuService import CpuService
 from web.service.ProcessService import ProcessService
 from web.service.FileSystemService import FileSystemService
+from web.service.MemService import MemService
+from web.service.CheckService import CheckService
+from web.service.task.TaskHelper import TaskHelper
+
+
+
 
 app = Flask(__name__)
-
-dao = BichonDao()
-cpu = CpuService()
-disk = FileSystemService()
-process = ProcessService()
-
 
 @app.route('/')
 def index():
@@ -82,8 +82,7 @@ def delService(serverId=1):
 # 获取服务状态
 @app.route('/service/statue')
 def serviceStatue(serverId=1):
-    request.values.get("host")
-    return
+    return jsonify(data=CheckService.checkStatue)
 
 
 '''file system'''
@@ -107,11 +106,12 @@ def pathInfo():
 
 '''mem'''
 
+
+@app.route('/mem/memInfo')
 # 内存总的使用率
 def memInfo():
-    request.values.get("host")
-
-    return
+    host = request.values.get("host")
+    return mem.getCpuStatue(host)
 
 
 # 程序内存占用
@@ -151,7 +151,7 @@ def processCpuInfo():
 @app.route('/processes')
 def processes():
     host = request.values.get("host")
-    data =  json.loads(process.getPids(host))
+    data = json.loads(process.getPids(host))
     return jsonify(data=data, error=False, msg="")
 
 
@@ -160,6 +160,13 @@ def processesDetail():
     host = request.values.get("host")
     pid = request.values.get("pid")
     jsondata = json.loads(process.getProcessInfo(host, int(pid)))
+    return jsonify(data=jsondata, error=False, msg="")
+
+
+@app.route('/allProcesses/detail')
+def allprocessesCustDetail():
+    host = request.values.get("host")
+    jsondata = json.loads(process.getCusProcessInfo(host))
     return jsonify(data=jsondata, error=False, msg="")
 
 
@@ -179,4 +186,12 @@ def test():
 
 
 if __name__ == '__main__':
+    dao = BichonDao()
+    cpu = CpuService()
+    mem = MemService()
+    disk = FileSystemService()
+    process = ProcessService()
+    check = CheckService()
+    taskHelper = TaskHelper()
+    taskHelper.initTasks()
     app.run(debug=True)

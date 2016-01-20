@@ -33,6 +33,7 @@ from com.check.agent.module.monitoring.disk.DiskModule import DiskModule
 from com.check.agent.module.monitoring.mem.MemModule import MemModule
 from com.check.agent.module.monitoring.net.NetModule import NetModule
 from com.check.agent.module.execing.ExecModule import ExecModule
+from com.check.agent.module.monitoring.process.CheckModule import CheckModule
 from com.check.agent.module.monitoring.process.ProcessModule import ProcessModule
 
 from com.common.BaseLoggingObj import BaseLoggingObj
@@ -48,6 +49,7 @@ class Agent(BaseLoggingObj, object):
         self.mem = MemModule()
         self.net = NetModule()
         self.ec = ExecModule()
+        self.check = CheckModule()
         self.process = ProcessModule()
         self.agent = SimpleXMLRPCServer(("localhost", Config.agent_port))
         self.registerCpu()
@@ -55,7 +57,8 @@ class Agent(BaseLoggingObj, object):
         self.registerExec()
         self.registerMem()
         self.registerNet()
-        self.registerprocess()
+        self.registerProcess()
+        self.registerCheck()
         self.logging.info("客户端程序启动。。。")
         self.agent.serve_forever();
 
@@ -90,7 +93,12 @@ class Agent(BaseLoggingObj, object):
     def registerExec(self):
         self.agent.register_function(self.ec.execCmd, "getPids")
 
-    def registerprocess(self):
+    def registerProcess(self):
         self.agent.register_function(self.process.getPids, "getPids")
         self.agent.register_function(self.process.processInfo, "getProcessInfo")
         self.agent.register_function(self.process.getCusProcessInfo, "getCusProcessInfo")
+
+    def registerCheck(self):
+        self.agent.register_function(self.check.portCheck, "portCheck")
+        self.agent.register_function(self.check.processCheck, "processCheck")
+        self.agent.register_function(self.check.urlCheck, "urlCheck")

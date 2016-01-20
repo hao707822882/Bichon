@@ -61,15 +61,18 @@ class ProcessModule(BaseLoggingObj, object):
     def getCusProcessInfo(self, attrs=['pid', 'name', 'username', 'exe', 'memory_info', 'threads', 'cmdline']):
         '''获取具体属性值'''
         pids = json.loads(self.getPids())
-        data={}
+        data = []
         for pid in pids:
             try:
+                d = {}
                 id = pid["pid"]
                 p = psutil.Process(pid=id)
                 ACCESS_DENIED = ''
                 dta = p.as_dict(ad_value=ACCESS_DENIED,
                                 attrs=attrs)
-                data.setdefault(id,dta)
+                d.setdefault("id", id)
+                d.setdefault("data", dta)
+                data.append(d)
             except Exception, e:
                 self.logging.info("get process error %s", str(e))
         return json.dumps(data, encoding="mbcs")

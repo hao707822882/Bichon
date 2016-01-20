@@ -37,9 +37,9 @@ class BichonDao(BaseLoggingObj, object):
     '''使用数据库'''
     useDB = "USE Bichon"
     '''服务器表'''
-    serverTB = "CREATE TABLE `server` (`id` int(11) NOT NULL AUTO_INCREMENT,`host` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'ip',`lab` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '标记服务器类别',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
+    serverTB = "CREATE TABLE `server` (`id` INT(11) NOT NULL AUTO_INCREMENT,`host` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT 'ip',`lab` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT '标记服务器类别',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
     '''每台服务器检测的服务'''
-    serviceTB = "CREATE TABLE `service` (`id` int(11) NOT NULL AUTO_INCREMENT,`execType` varchar(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`serverId` int(11) NOT NULL COMMENT '所属服务器ID',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
+    serviceTB = "CREATE TABLE `service` (`id` INT(11) NOT NULL AUTO_INCREMENT,`execType` VARCHAR(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`port` VARCHAR(10) COLLATE utf8_bin DEFAULT NULL COMMENT '端口',`url` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`serverId` INT(11) NOT NULL COMMENT '所属服务器ID',`lab` VARCHAR(30) NOT NULL COMMENT '描述',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
 
     selectServerSql = "SELECT * FROM SERVER"
 
@@ -50,6 +50,8 @@ class BichonDao(BaseLoggingObj, object):
     addServiceSql = "INSERT INTO `service` (serverId,execType,execCommand,present) VALUES('{0}','{1}','{2}','{3}')"
 
     selectServiceSql = "SELECT * FROM service WHERE serverId={0}"
+
+    selectServiceWithServerSql = "SELECT * FROM service,server WHERE service.serverId = server.id"
 
     deleteServiceSql = "DELETE FROM service WHERE id={0}"
 
@@ -85,6 +87,9 @@ class BichonDao(BaseLoggingObj, object):
         sql = BichonDao.selectServiceSql.format(serverId)
         return self.sqlHelp.select(sql)
 
+    def selectServiceWithServer(self):
+        return self.sqlHelp.select(BichonDao.selectServiceWithServerSql)
+
     def deleteService(self, serviceId):
         sql = BichonDao.deleteServiceSql.format(serviceId)
         self.sqlHelp.delete(sql)
@@ -92,5 +97,3 @@ class BichonDao(BaseLoggingObj, object):
     def deleteAllService(self, serverId):
         sql = BichonDao.deleteServiceByServerIdSql.format(serverId)
         self.sqlHelp.delete(sql)
-
-
