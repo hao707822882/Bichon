@@ -25,10 +25,12 @@
 #  Date: 2016/1/1
 #  Time: 15:06
 
-from com.common.BaseLoggingObj import BaseLoggingObj
-from com.common.BaseLoggingObj import logger
 import json
+import time
+
 import psutil
+
+from com.common.BaseLoggingObj import BaseLoggingObj
 
 __author__ = 'Administrator'
 
@@ -42,4 +44,10 @@ class NetModule(BaseLoggingObj, object):
         return {"type": "Net", "items": [{"name": "网卡信息", "function": "getNetInfo"}]}
 
     def getNetInfo(self):
-        return json.dumps(psutil.net_io_counters(pernic=True), encoding="mbcs")
+        data = {}
+        data["data"] = psutil.net_io_counters(pernic=True)
+        data["time"] = time.time()
+        return json.dumps(data, encoding="mbcs")
+
+
+NetModule().getNetInfo()

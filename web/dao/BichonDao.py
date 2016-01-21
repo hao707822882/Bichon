@@ -39,7 +39,7 @@ class BichonDao(BaseLoggingObj, object):
     '''服务器表'''
     serverTB = "CREATE TABLE `server` (`id` INT(11) NOT NULL AUTO_INCREMENT,`host` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT 'ip',`lab` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT '标记服务器类别',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
     '''每台服务器检测的服务'''
-    serviceTB = "CREATE TABLE `service` (`id` INT(11) NOT NULL AUTO_INCREMENT,`execType` VARCHAR(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`port` VARCHAR(10) COLLATE utf8_bin DEFAULT NULL COMMENT '端口',`url` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`serverId` INT(11) NOT NULL COMMENT '所属服务器ID',`lab` VARCHAR(30) NOT NULL COMMENT '描述',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
+    serviceTB = "CREATE TABLE `service` (`id` INT(11) NOT NULL AUTO_INCREMENT,`execType` VARCHAR(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`port` VARCHAR(10) COLLATE utf8_bin DEFAULT NULL COMMENT '端口',`host` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`url` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`serverId` INT(11) NOT NULL COMMENT '所属服务器ID',`lab` VARCHAR(30) NOT NULL COMMENT '描述',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
 
     selectServerSql = "SELECT * FROM SERVER"
 

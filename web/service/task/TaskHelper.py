@@ -35,6 +35,7 @@ from web.service.CheckService import CheckService
 __author__ = 'Administrator'
 
 import logging
+import time
 
 logging.basicConfig()
 
@@ -62,17 +63,10 @@ class TaskHelper(object):
                     self.timerTaskService.addJob(service["lab"], service["host"] + service["execCommand"],
                                                  nginxTask.check, "*/1", "*", "*")
                 elif service["execType"] == "url":
-                    urlTask = UrlTask(service["port"], service["host"], service["url"], service["lab"])
+                    urlTask = UrlTask(service["port"].encode("utf-8"), service["host"].encode("utf-8"),
+                                      service["url"].encode("utf-8"), service["lab"].encode("utf-8"))
+                    # urlTask = UrlTask("80", "www.baidu.com", "/", "baiduService")
                     self.timerTaskService.addJob(service["lab"], service["host"] + service["lab"],
                                                  urlTask.check, "*/1", "*", "*")
 
 
-timerTaskService = TimerTaskService()
-urlTask = UrlTask("80", "www.baidu.com", "/", "baiduService")
-# timerTaskService.addJob("baiduService", "www.baidu.com:baiduService", urlTask.check, "*/1", "*", "*")
-urlTask1 = UrlTask("80", "school.iboom.tv", "/school/login.html", "schoolService")
-timerTaskService.addJob("schoolService", "school.iboom.tv/school/login.htmlschoolService", urlTask1.check, "*/1", "*",
-                        "*")
-
-while True:
-    print CheckService.checkStatue

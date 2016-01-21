@@ -5,19 +5,19 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/disk', {
             templateUrl: '/static/app/template/monitor/disk.html',
-            controller: 'indexViewController'
+            controller: 'diskController'
         }).when('/mem', {
             templateUrl: '/static/app/template/monitor/mem.html',
-            controller: 'indexViewController'
+            controller: 'memController'
         }).when('/cpu', {
             templateUrl: '/static/app/template/monitor/cpu.html',
-            controller: 'indexViewController'
+            controller: 'cpuController'
         }).when('/net', {
             templateUrl: '/static/app/template/monitor/net.html',
             controller: 'indexViewController'
         }).when('/service', {
             templateUrl: '/static/app/template/monitor/service.html',
-            controller: 'indexViewController'
+            controller: 'serviceController'
         }).when('/projectPush', {
             templateUrl: '/static/app/template/projectPush/projectPush.html',
             controller: 'indexViewController'

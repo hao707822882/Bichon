@@ -35,12 +35,12 @@ from web.service.ProcessService import ProcessService
 from web.service.FileSystemService import FileSystemService
 from web.service.MemService import MemService
 from web.service.CheckService import CheckService
+from web.service.NetService import NetService
+from com.Config import Config
 from web.service.task.TaskHelper import TaskHelper
 
-
-
-
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -111,7 +111,8 @@ def pathInfo():
 # 内存总的使用率
 def memInfo():
     host = request.values.get("host")
-    return mem.getCpuStatue(host)
+    data = json.loads(mem.getCpuStatue(host))
+    return jsonify(data=data, error=False, msg="")
 
 
 # 程序内存占用
@@ -123,10 +124,14 @@ def processMemInfo():
 
 '''net'''
 
+
+@app.route('/net/netInfo')
 # 网络信息
 def netInfo():
-    request.values.get("host")
-    return
+    host = request.values.get("host").encode("utf-8")
+    data = json.loads(net.getNetInfo(host))
+    data = net.getOutSpeed(host, data)
+    return jsonify(data=data, error=False, msg="")
 
 
 '''CPU'''
@@ -136,6 +141,7 @@ def netInfo():
 def cpuInfo():
     host = request.values.get("host")
     data = cpu.getCpuStatue(host)
+
     return jsonify(data=data, error=False, msg="")
 
 
@@ -192,6 +198,7 @@ if __name__ == '__main__':
     disk = FileSystemService()
     process = ProcessService()
     check = CheckService()
+    net = NetService()
     taskHelper = TaskHelper()
     taskHelper.initTasks()
     app.run(debug=True)

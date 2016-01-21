@@ -41,7 +41,6 @@ class UrlTask(object):
     def check(self):
         data = self.cs.urlCheck(self.host, self.port, self.url)
         key = self.lab + self.host + ":" + self.port
-        print data
         CheckService.checkStatue[key] = data
 
 

@@ -52,3 +52,8 @@ class Config(object):
 
     # 软件安装配置
     mysqlRoot = "B8S7nVEvTCv4zxRa"
+
+
+
+    # 网卡名字
+    eht = "本地连接 2"

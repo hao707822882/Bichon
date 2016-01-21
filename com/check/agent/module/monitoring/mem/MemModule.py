@@ -43,3 +43,7 @@ class MemModule(BaseLoggingObj, object):
 
     def getMemInfo(self):
         return json.dumps(psutil.virtual_memory())
+
+
+
+print MemModule().getMemInfo()

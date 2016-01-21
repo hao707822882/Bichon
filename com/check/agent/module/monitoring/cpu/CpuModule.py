@@ -49,3 +49,5 @@ class CpuModule(BaseLoggingObj, object):
     def getCpuInfo(self):
         data=psutil.cpu_times(percpu=True)
         return json.dumps(data)
+
+CpuModule().getCpuInfo()

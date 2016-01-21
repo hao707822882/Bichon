@@ -73,19 +73,29 @@ BootStrapStarter.directive("echartLine", function ($http) {
                     return temp;
                 })(timeXLength)
 
+                var dynamicPath = $attrs.dynamic
+
                 var chart = echarts.init($element[0]);
                 chart.setOption(getOption(lineLab, xLine, initDate))
                 setInterval(function () {
                     var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
-                    chart.addData([
-                        [
-                            0,        // 系列索引
-                            Math.round(Math.random() * 1000), // 新增数据
-                            false,     // 新增数据是否从队列头部插入
-                            false,     // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
-                            axisData
-                        ]
-                    ]);
+
+
+                    $http.get(dynamicPath).success(function (data) {
+                        chart.addData([
+                            [
+                                0,        // 系列索引
+                                data.data,
+                                false,     // 新增数据是否从队列头部插入
+                                false,     // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                axisData
+                            ]
+                        ]);
+                    }).error(function () {
+                        layer.msg("初始化诗句获取失败")
+                    })
+
+
                 }, 1000);
 
             } else {//静态数据
