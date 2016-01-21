@@ -47,7 +47,7 @@ class NetModule(BaseLoggingObj, object):
         data = {}
         data["data"] = psutil.net_io_counters(pernic=True)
         data["time"] = time.time()
-        return json.dumps(data, encoding="mbcs")
+        return json.dumps(data, encoding="utf-8")
 
 
-NetModule().getNetInfo()
+print NetModule().getNetInfo()

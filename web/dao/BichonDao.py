@@ -33,19 +33,19 @@ __author__ = 'Administrator'
 
 class BichonDao(BaseLoggingObj, object):
     '''创建数据库'''
-    initDB = "CREATE DATABASE  IF NOT EXISTS Bichon DEFAULT CHARACTER SET utf8"
+    initDB = "CREATE DATABASE  IF NOT EXISTS bichon DEFAULT CHARACTER SET utf8"
     '''使用数据库'''
-    useDB = "USE Bichon"
+    useDB = "USE bichon"
     '''服务器表'''
     serverTB = "CREATE TABLE `server` (`id` INT(11) NOT NULL AUTO_INCREMENT,`host` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT 'ip',`lab` VARCHAR(50) COLLATE utf8_bin NOT NULL COMMENT '标记服务器类别',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
     '''每台服务器检测的服务'''
     serviceTB = "CREATE TABLE `service` (`id` INT(11) NOT NULL AUTO_INCREMENT,`execType` VARCHAR(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`port` VARCHAR(10) COLLATE utf8_bin DEFAULT NULL COMMENT '端口',`host` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`url` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`serverId` INT(11) NOT NULL COMMENT '所属服务器ID',`lab` VARCHAR(30) NOT NULL COMMENT '描述',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
 
-    selectServerSql = "SELECT * FROM SERVER"
+    selectServerSql = "SELECT * FROM server"
 
     addServerSql = "INSERT INTO `server` (HOST,lab) VALUES('{0}','{1}')"
 
-    deleteServerSql = "DELETE FROM SERVER WHERE id={0}"
+    deleteServerSql = "DELETE FROM service WHERE id={0}"
 
     addServiceSql = "INSERT INTO `service` (serverId,execType,execCommand,present) VALUES('{0}','{1}','{2}','{3}')"
 
@@ -64,7 +64,7 @@ class BichonDao(BaseLoggingObj, object):
 
     def init(self):
         self.sqlHelp.insert(BichonDao.initDB)
-        self.sqlHelp.db = "Bichon"
+        self.sqlHelp.db = "bichon"
         self.sqlHelp.insert(BichonDao.serverTB)
         self.sqlHelp.insert(BichonDao.serviceTB)
 

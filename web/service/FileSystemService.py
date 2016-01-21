@@ -24,3 +24,5 @@ class FileSystemService(object):
     def cp(self, hostKey, path):
         broker = BrokerService.getBroker(hostKey)
         return broker.cp(path)
+
+print FileSystemService().partitionInfo("127.0.0.1")

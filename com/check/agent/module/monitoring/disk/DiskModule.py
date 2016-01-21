@@ -53,12 +53,12 @@ class DiskModule(BaseLoggingObj, object):
         partitions = self.__getDiskPartitionInfo()
         for partition in partitions:
             try:
-                diskInfo.append({"partition": partition[0], "detail": self.__getDiskPartitionUsageInfo(partition[0])})
+                diskInfo.append({"partition": partition[1], "detail": self.__getDiskPartitionUsageInfo(partition[1])})
             except Exception, e:
                 partition
         return json.dumps(diskInfo)
 
     def getPathDetail(self, path):
         '''传入路径必须是绝对路径'''
-        data = json.dumps(os.listdir(path), encoding="mbcs")
+        data = json.dumps(os.listdir(path), encoding="utf-8")
         return data

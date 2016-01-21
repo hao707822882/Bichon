@@ -1,6 +1,6 @@
 <panel head="分区状态">
     <row>
-        <progress-boot-strap ng-repeat="d in data" width="{{d.detail[3]}}" data="{{d.partition}}"></progress-boot-strap>
+        <progress-boot-strap ng-repeat="d in data" width="{{d.detail[1]/d.detail[0]}}" data="{{d.partition}}"></progress-boot-strap>
     </row>
     <table class="table table-striped table-hover">
         <tr>

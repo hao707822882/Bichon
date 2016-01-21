@@ -56,4 +56,4 @@ class Config(object):
 
 
     # 网卡名字
-    eht = "本地连接 2"
+    eht = "eth1"

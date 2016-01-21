@@ -49,14 +49,14 @@ class ProcessModule(BaseLoggingObj, object):
                 pids.append(process)
             except Exception, e:
                 self.logging.info("get process error %s", str(e))
-        return json.dumps(pids, encoding="mbcs")
+        return json.dumps(pids, encoding="utf-8")
 
     def processInfo(self, pid):
         '''获取进程信息'''
         p = psutil.Process(pid=pid)
         ACCESS_DENIED = ''
         dta = p.as_dict(ad_value=ACCESS_DENIED)
-        return json.dumps(dta, encoding="mbcs")
+        return json.dumps(dta, encoding="utf-8")
 
     def getCusProcessInfo(self, attrs=['pid', 'name', 'username', 'exe', 'memory_info', 'threads', 'cmdline']):
         '''获取具体属性值'''
@@ -75,4 +75,4 @@ class ProcessModule(BaseLoggingObj, object):
                 data.append(d)
             except Exception, e:
                 self.logging.info("get process error %s", str(e))
-        return json.dumps(data, encoding="mbcs")
+        return json.dumps(data, encoding="utf-8")
