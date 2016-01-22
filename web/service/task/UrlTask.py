@@ -31,16 +31,18 @@ __author__ = 'Administrator'
 
 
 class UrlTask(object):
-    def __init__(self, port, host, url, lab):
+    def __init__(self, serverId, port, host, url, lab):
         self.host = host
         self.port = port
         self.url = url
         self.lab = lab
+        self.serverId = serverId
         self.cs = CheckService()
 
     def check(self):
         data = self.cs.urlCheck(self.host, self.port, self.url)
-        key = self.lab + self.host + ":" + self.port
+        print self.url+""+str(data)
+        key = str(self.serverId)+":"+ self.lab + ":" + self.host + ":" + self.port
         CheckService.checkStatue[key] = data
 
 

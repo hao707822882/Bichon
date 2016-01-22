@@ -31,12 +31,13 @@ __author__ = 'Administrator'
 
 
 class NginxTask(object):
-    def __init__(self, port, host):
+    def __init__(self, serverId,port, host):
         self.host = host
         self.port = port
-        self.check = CheckService()
+        self.serverId=serverId
+        self.c = CheckService()
 
     def check(self):
-        data = self.check.nginxCheck(self.host, port=self.port)
-        key = self.host + self.port + "nginx"
+        data = self.c.nginxCheck(self.host, port=self.port)
+        key = str(self.serverId)+":"+self.host +":"+ self.port +":"+ "nginx"
         CheckService.checkStatue[key] = data

@@ -51,7 +51,7 @@ class Agent(BaseLoggingObj, object):
         self.ec = ExecModule()
         self.check = CheckModule()
         self.process = ProcessModule()
-        self.agent = SimpleXMLRPCServer(("localhost", Config.agent_port))
+        self.agent = SimpleXMLRPCServer(("0.0.0.0", Config.agent_port))
         self.registerCpu()
         self.registerDisk()
         self.registerExec()

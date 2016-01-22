@@ -209,7 +209,7 @@ bootStrapModuleStarter.directive("tableModule", function ($http, Util) {
                     if (!window.confirm("！确认删除该数据"))
                         return;
                     var deleteUrl = $scope.deleteUrl + "/" + data.id;
-                    Util.delete(deleteUrl, function (data) {
+                    Util.get(deleteUrl, function (data) {
                         $(btn).parents("tr").remove();
                         Util.topTip("删除成功")
                     }, function () {
@@ -299,17 +299,26 @@ bootStrapModuleStarter.directive("headerMenu", function ($http) {
                 window.location.href = "/static/index.html#/" + $scope.menuSub[0].url
             }
 
-            $scope.hosts = ["127.0.0.1", "127.0.0.12", "127.0.0.13", "127.0.0.14"]
 
-            $scope.host=$scope.hosts[0]
+            $scope.active=function(data){
+                $scope.flag=$(data).attr("href").split("#")[1]
+            }
+
+
+            $http.get("/server/getAll").success(function(data){
+                $scope.hosts=data.data
+                $scope.host=$scope.hosts[0]
+            }).error(function(){layer.msg("服务器列表数据获取失败")})
+
+
+
 
             $scope.changHost = function (host) {
                 $scope.host = host
-
             }
 
             $scope.$evalAsync(function () {
-                window.location.href = "/static/index.html#/" + $scope.menuSub[0].url
+                window.location.href = "/static/index.html#/welcom"
             })
 
 

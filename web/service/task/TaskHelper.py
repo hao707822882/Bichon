@@ -45,6 +45,10 @@ class TaskHelper(object):
         self.dao = BichonDao()
         self.timerTaskService = TimerTaskService()
         self.initState = False
+        try:
+            self.initTasks()
+        except Exception,e:
+            print "monitor task init error you can not get monitoring data"
 
     def initTasks(self):
         if self.initState:
@@ -55,18 +59,32 @@ class TaskHelper(object):
         if len(data) == 1:
             for service in data[0]:
                 if service["execType"] == "mysql":
-                    mysqlTask = MysqlTask(service["port"], service["host"])
-                    self.timerTaskService.addJob(service["lab"], service["host"] + service["execCommand"],
-                                                 mysqlTask.check, "*/1", "*", "*")
+                    mysqlTask = MysqlTask(service["serverId"],service["port"], service["host"])
+                    self.timerTaskService.addJob(service["lab"], str(service["serverId"])+":"+service["host"] +":"+service["lab"],
+                                                 mysqlTask.check, "*/5", "*", "*")
                 elif service["execType"] == "nginx":
-                    nginxTask = NginxTask(service["port"], service["host"])
-                    self.timerTaskService.addJob(service["lab"], service["host"] + service["execCommand"],
-                                                 nginxTask.check, "*/1", "*", "*")
+                    nginxTask = NginxTask(service["serverId"],service["port"], service["host"])
+                    self.timerTaskService.addJob(service["lab"], str(service["serverId"])+":"+service["host"]+":"+service["lab"],
+                                                 nginxTask.check, "*/5", "*", "*")
                 elif service["execType"] == "url":
-                    urlTask = UrlTask(service["port"].encode("utf-8"), service["host"].encode("utf-8"),
+                    urlTask = UrlTask(service["serverId"],service["port"].encode("utf-8"), service["host"].encode("utf-8"),
                                       service["url"].encode("utf-8"), service["lab"].encode("utf-8"))
                     # urlTask = UrlTask("80", "www.baidu.com", "/", "baiduService")
-                    self.timerTaskService.addJob(service["lab"], service["host"] + service["lab"],
-                                                 urlTask.check, "*/1", "*", "*")
+                    self.timerTaskService.addJob(service["lab"], str(service["serverId"])+":"+service["host"]+":"+service["lab"],
+                                                 urlTask.check, "*/5", "*", "*")
 
 
+
+    def addTask(self, execType, serverId, port, host, lab, url):
+        if execType== "mysql":
+            mysqlTask = MysqlTask(serverId,port,host)
+            self.timerTaskService.addJob(lab, serverId+":"+host +":"+lab,
+                                         mysqlTask.check, "*/5", "*", "*")
+        if execType== "nginx":
+            nginxTask = NginxTask(serverId,port,host)
+            self.timerTaskService.addJob(lab, serverId+":"+host+":"+lab,
+                                     nginxTask.check, "*/5", "*", "*")
+        if execType== "url":
+            urlTask = UrlTask(serverId,port, host,url, lab)
+            # urlTask = UrlTask("80", "www.baidu.com", "/", "baiduService")
+            self.timerTaskService.addJob(lab, serverId+":"+host+":"+lab,urlTask.check, "*/5", "*", "*")

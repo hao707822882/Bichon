@@ -31,12 +31,17 @@ __author__ = 'Administrator'
 
 
 class MysqlTask(object):
-    def __init__(self, port, host):
+    def __init__(self, serverId,port, host):
         self.host = host
         self.port = port
-        self.check = CheckService()
+        self.serverId=serverId
+        self.c = CheckService()
 
     def check(self):
-        data = self.check.mysqlCheck(self.host, port=self.port)
-        key = self.host + self.port + "mysql"
+        data = self.c.mysqlCheck(self.host, port=self.port)
+        key = str(self.serverId)+":"+self.host +":"+ self.port  +":mysql"
         CheckService.checkStatue[key] = data
+
+
+
+# print MysqlTask(2,"3306","127.0.0.1").check()

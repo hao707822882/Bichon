@@ -14,7 +14,6 @@ class CheckService(object):
 
     def __init__(self):
         self.dao = BichonDao()
-        self.timerTaskService = TimerTaskService()
 
     def processCheck(self, hostKey, processName):
         broker = BrokerService.getBroker(hostKey)
@@ -31,7 +30,7 @@ class CheckService(object):
         '''mysql check'''
         psData = self.processCheck(host, name)
         portData = self.portCheck(host, port)
-        if (len(portData) > 0) and (len(psData) > 0):
+        if (len(portData) >=1) and (len(psData) >= 4):
             return True
         else:
             return False

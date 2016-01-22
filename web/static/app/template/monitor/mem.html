@@ -6,28 +6,26 @@
             </col12>
             <table class="table table-striped table-hover">
                 <tr>
-                    <th>单位为KB</th>
                     <th>进程ID</th>
-                    <th>进程启动命令</th>
-                    <th>占用内存量</th>
+                    <th>name</th>
+                    <th>物理内存占用量(KB)</th>
+                    <th>虚拟内存占用量(KB)</th>
+                    <th>mem present</th>
+                    <th>程序cpu</th>
+                    <th>系统cpu</th>
+                    <th>cpu present</th>
+                    <th>当前状态</th>
                 </tr>
-                <tr>
-                    <td>index</td>
-                    <td>0</td>
-                    <td>init</td>
-                    <td>100KB</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>0</td>
-                    <td>init</td>
-                    <td>100KB</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>0</td>
-                    <td>init</td>
-                    <td>100KB</td>
+                <tr ng-repeat="process in processes | orderBy:'memory_info[0]':true">
+                    <td>{{process.pid}}</td>
+                    <td>{{process.name}}</td>
+                    <td>{{process.memory_info[0]/1024}}</td>
+                    <td>{{process.memory_info[1]/1024}}</td>
+                    <td>{{process.memory_percent}}</td>
+                    <td>{{process.cpu_times[0]}}</td>
+                    <td>{{process.cpu_times[1]}}</td>
+                    <td>{{process.cpu_percent}}</td>
+                    <td>{{process.status}}</td>
                 </tr>
             </table>
         </row>

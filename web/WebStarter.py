@@ -2,14 +2,14 @@
 # --coding:utf-8--
 # coding: utf-8
 # ━━━━━━神兽出没━━━━━━
-#  　　　┏┓　　　┏┓
+#  　　 ┏┓　  ┏┓
 #  　　┏┛┻━━━┛┻┓
-#  　　┃　　　　　　　┃
-#  　　┃　　　━　　　┃
-#  　　┃　┳┛　┗┳　┃
-#  　　┃　　　　　　　┃
-#  　　┃　　　┻　　　┃
-#  　　┃　　　　　　　┃
+#  　　┃　　　　　 ┃
+#  　　┃　　　━　　┃
+#  　　┃　┳┛　┗┳   ┃
+#  　　┃　　　　　 ┃
+#  　　┃　　　┻　　┃
+#  　　┃　　　　　 ┃
 #  　　┗━┓　　　┏━┛
 #  　　　　┃　　　┃神兽保佑, 永无BUG!
 #  　　　　┃　　　┃Code is far away from bug with the animal protecting
@@ -68,21 +68,35 @@ def getAllService(serverId=1):
 # 增添新服务
 @app.route('/service/add')
 def addService(serverId=1):
-    services = dao.selectService(serverId)
-    return jsonify(data=services[0], pages=len(services))
+    serverId = request.values.get("serverId")
+    execType = request.values.get("execType")
+    execCommand = request.values.get("execCommand")
+    host = request.values.get("host")
+    port = request.values.get("port")
+    url = request.values.get("url")
+    lab = request.values.get("lab")
+    services = dao.addService(serverId,execType,execCommand,host,port,url,lab)
+    taskHelper.addTask(execType,serverId,port,host,lab,url)
+    return jsonify(data=True)
 
 
 # 增添新服务
-@app.route('/service/dele')
-def delService(serverId=1):
-    services = dao.selectService(serverId)
-    return jsonify(data=services[0], pages=len(services))
+@app.route('/service/dele/<int:serviceId>')
+def delService(serviceId):
+    dao.deleteServiceById(serviceId)
+    return jsonify(data=True)
 
 
 # 获取服务状态
 @app.route('/service/statue')
-def serviceStatue(serverId=1):
-    return jsonify(data=CheckService.checkStatue)
+def serviceStatue():
+    serverId = request.values.get("serverId")
+    data={}
+    for (k, v) in CheckService.checkStatue.items():
+        d=k.split(":")
+        if d[0]==serverId:
+            data[k]=v
+    return jsonify(data=data)
 
 
 '''file system'''
@@ -200,5 +214,5 @@ if __name__ == '__main__':
     check = CheckService()
     net = NetService()
     taskHelper = TaskHelper()
-    taskHelper.initTasks()
+
     app.run(debug=True)

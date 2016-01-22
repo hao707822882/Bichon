@@ -299,7 +299,6 @@ BootStrapStarter.directive("myInput", function () {
                 input.attr("name", name)
                 $element.find("input").on('blur keyup change', function () {
                     var element = this
-                    $scope.say()
                     $scope.$apply(function () {
                         var sf = $scope.formData;
                         sf[name] = $(element).val()
@@ -349,7 +348,6 @@ BootStrapStarter.directive("myCheckbox", function () {
                 input.val(value)
                 $element.find("input").on('click', function () {
                     var element = this
-                    $scope.say()
                     $scope.$apply(function () {
                         var sf = $scope.formData;
                         var needAdd = true
@@ -411,7 +409,6 @@ BootStrapStarter.directive("myRadio", function () {
                 input.val(value)
                 $element.find("input").on('click', function () {
                     var element = this
-                    $scope.say()
                     $scope.$apply(function () {
                         if (element.checked) {
                             var sf = $scope.formData
@@ -470,7 +467,6 @@ BootStrapStarter.directive("mySelect", function () {
                     select.append(
                         $("<option/>").attr("value", this.value).text(this.text).on('blur keyup change click', function () {
                             var selectOptions = select.find("option:selected")
-                            $scope.say()
                             $scope.$apply(function () {
                                 var sf = $scope.formData;
                                 var data = []

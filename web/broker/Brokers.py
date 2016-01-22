@@ -4,16 +4,22 @@ import xmlrpclib
 
 from com.Config import Config
 from web.dao.BichonDao import BichonDao
+from com.common.BaseLoggingObj import BaseLoggingObj
+
 
 __author__ = 'Administrator'
 
 
-class Brokers(object):
+class Brokers(BaseLoggingObj,object):
     agentMap = {}
 
     def __init__(self):
+        BaseLoggingObj.__init__(self)
         self.bichondao = BichonDao()
-        self.initAllServer()
+        try:
+            self.initAllServer()
+        except Exception,e:
+            self.logging.error("brokers init false!")
 
     def getBroker(self, key):
         broker = Brokers.agentMap.get(key)

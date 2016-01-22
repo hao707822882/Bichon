@@ -29,6 +29,7 @@ import psutil
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 import json
+import time
 
 __author__ = 'Administrator'
 
@@ -58,21 +59,21 @@ class ProcessModule(BaseLoggingObj, object):
         dta = p.as_dict(ad_value=ACCESS_DENIED)
         return json.dumps(dta, encoding="utf-8")
 
-    def getCusProcessInfo(self, attrs=['pid', 'name', 'username', 'exe', 'memory_info', 'threads', 'cmdline']):
+
+    def getCusProcessInfoInternal(self, attrs=['pid', 'name', 'username', 'exe', 'cpu_percent', 'memory_info', 'threads', 'cmdline']):
         '''获取具体属性值'''
-        pids = json.loads(self.getPids())
         data = []
-        for pid in pids:
+        for p in psutil.process_iter():
             try:
-                d = {}
-                id = pid["pid"]
-                p = psutil.Process(pid=id)
-                ACCESS_DENIED = ''
-                dta = p.as_dict(ad_value=ACCESS_DENIED,
-                                attrs=attrs)
-                d.setdefault("id", id)
-                d.setdefault("data", dta)
+                d = p.as_dict(attrs)
                 data.append(d)
-            except Exception, e:
-                self.logging.info("get process error %s", str(e))
+            except psutil.NoSuchProcess:
+                pass
+        return data
+
+    def getCusProcessInfo(self, attrs=['pid', 'name', 'username', 'exe', 'cpu_percent', 'memory_info', 'threads', 'cmdline']):
+        self.getCusProcessInfoInternal(attrs=attrs)
+        time.sleep(1)
+        data=self.getCusProcessInfoInternal(attrs=attrs)
         return json.dumps(data, encoding="utf-8")
+

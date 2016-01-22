@@ -56,4 +56,4 @@ class Config(object):
 
 
     # 网卡名字
-    eht = "eth1"
+    eht = "eth2"

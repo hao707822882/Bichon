@@ -47,7 +47,7 @@ class BichonDao(BaseLoggingObj, object):
 
     deleteServerSql = "DELETE FROM service WHERE id={0}"
 
-    addServiceSql = "INSERT INTO `service` (serverId,execType,execCommand,present) VALUES('{0}','{1}','{2}','{3}')"
+    addServiceSql = "INSERT INTO `service` (serverId, execType, execCommand, host, port, url,lab) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')"
 
     selectServiceSql = "SELECT * FROM service WHERE serverId={0}"
 
@@ -56,6 +56,8 @@ class BichonDao(BaseLoggingObj, object):
     deleteServiceSql = "DELETE FROM service WHERE id={0}"
 
     deleteServiceByServerIdSql = "DELETE FROM service WHERE serverId={0}"
+
+    deleteServiceByServiceIdSql="DELETE FROM service WHERE id={0}"
 
     def __init__(self):
         BaseLoggingObj.__init__(self)
@@ -79,8 +81,8 @@ class BichonDao(BaseLoggingObj, object):
         sql = BichonDao.deleteServerSql.format(id)
         self.sqlHelp.delete(sql)
 
-    def addService(self, serverId, execType, execCommand, addServiceSql):
-        sql = BichonDao.addServiceSql.format(serverId, execType, execCommand, addServiceSql)
+    def addService(self, serverId, execType, execCommand,host,port,url,lab):
+        sql = BichonDao.addServiceSql.format(serverId, execType, execCommand, host,port,url,lab)
         self.sqlHelp.insert(sql)
 
     def selectService(self, serverId):
@@ -96,4 +98,8 @@ class BichonDao(BaseLoggingObj, object):
 
     def deleteAllService(self, serverId):
         sql = BichonDao.deleteServiceByServerIdSql.format(serverId)
+        self.sqlHelp.delete(sql)
+
+    def deleteServiceById(self, serviceId):
+        sql = BichonDao.deleteServiceByServiceIdSql.format(serviceId)
         self.sqlHelp.delete(sql)

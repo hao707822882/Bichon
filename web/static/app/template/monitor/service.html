@@ -3,19 +3,16 @@
         <row>
             <col12>
                 <form-inline-horizontal>
-                    <input-container>
-                        <label for="execType">execType</label>
-                        <input type="text" id="execType" input-class placeholder="命令类型"/>
+                    <my-input id="name" lab="execType" name="execType" type="input" placeholder="url/mysql"></my-input>
+                    <my-input id="execCommand" lab="execCommand" name="execCommand" type="input" placeholder="url/mysql"></my-input>
+                    <my-input id="port" lab="port" name="port" type="input" placeholder="port"></my-input>
+                    <my-input id="host" lab="host" name="host" type="input" placeholder="host"></my-input>
+                    <my-input id="url" lab="url" name="url" type="input" placeholder="url"></my-input>
+                    <my-input id="lab" lab="lab" name="lab" type="input" placeholder="lab"></my-input>
+
+                    <input-container >
+                        <btn ng-click="addServiceCheck()">提交</btn>
                     </input-container>
-                    <input-container>
-                        <label for="execCommand">命令或者参数</label>
-                        <input type="text" id="execCommand" input-class placeholder="命令或者参数"/>
-                    </input-container>
-                    <input-container>
-                        <label for="present">描述</label>
-                        <input type="text" id="present" input-class placeholder="服务描述"/>
-                    </input-container>
-                    <btn><span class="glyphicon glyphicon-ok">添加</span></btn>
                 </form-inline-horizontal>
                 <row>
                     <div class="alert alert-warning alert-dismissible" role="alert">
@@ -51,10 +48,9 @@
         <row>
             <table-module
                     url="/service/1"
-                    ths="[{'name':'ID','paramName':'id'},{'name':'服务名称','paramName':'present'},{'name':'操作类型','paramName':'execType'},{'name':'操作命令','paramName':'execCommand'}]"
-                    delete="/admin/deleteBGM"
-                    update="/admin/updateBGM"
-                    need-delete need-update></table-module>
+                    ths="[{'name':'ID','paramName':'id'},{'name':'操作类型','paramName':'execType'},{'name':'操作命令','paramName':'execCommand'},{'name':'主机','paramName':'host'},{'name':'端口','paramName':'port'},{'name':'服务描述','paramName':'lab'}]"
+                    delete="/service/dele"
+                    need-delete></table-module>
         </row>
     </panel>
 </row>

@@ -42,7 +42,7 @@ class ProcessService(object):
         broker = BrokerService.getBroker(hostKey)
         return broker.getProcessInfo(processId)
 
-    def getCusProcessInfo(self, hostKey, attrs=['pid', 'name', 'username', 'memory_info', 'cpu_times']):
+    def getCusProcessInfo(self, hostKey, attrs=['pid', 'name', 'username', 'memory_info', 'status', 'memory_percent', 'cpu_percent', 'cpu_times']):
         broker = BrokerService.getBroker(hostKey)
         return broker.getCusProcessInfo(attrs)
 

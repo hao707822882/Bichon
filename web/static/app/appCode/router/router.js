@@ -6,6 +6,9 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
         when('/disk', {
             templateUrl: '/static/app/template/monitor/disk.html',
             controller: 'diskController'
+        }).when('/welcom', {
+            templateUrl: '/static/app/template/monitor/welcom.html',
+            controller: 'welcomeController'
         }).when('/mem', {
             templateUrl: '/static/app/template/monitor/mem.html',
             controller: 'memController'
