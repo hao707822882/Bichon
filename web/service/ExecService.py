@@ -1,6 +1,5 @@
 # _*_ coding:utf-8 _*_
-from web.broker.Brokers import Broker
-
+from web.broker.BrokerService import BrokerService
 __author__ = 'Administrator'
 
 
@@ -9,5 +8,5 @@ class ExecService(object):
         pass
 
     def runShell(self, hostKey, cmd):
-        broker = Broker.getBroker(hostKey)
-        return broker.runShell(cmd)
+        broker = BrokerService.getBroker(hostKey)
+        return broker.execCmd(cmd)

@@ -28,12 +28,20 @@ class CheckService(object):
 
     def check(self, host, name, port):
         '''mysql check'''
-        psData = self.processCheck(host, name)
-        portData = self.portCheck(host, port)
+        psData = self.processCheck(host.encode("utf-8"), name.encode("utf-8"))
+        portData = self.portCheck(host.encode("utf-8"), port.encode("utf-8"))
         if (len(portData) >=1) and (len(psData) >= 4):
             return True
         else:
             return False
+
+    def checkInstalled(self,hostKey,softName):
+        broker = BrokerService.getBroker(hostKey)
+        data=broker.execCmd("service  "+softName+"  status")
+        if "unrecognized" in data[1]:
+            return False
+        else:
+            return True
 
     def mysqlCheck(self, host, name="mysql", port="3306"):
         '''mysql check'''
@@ -42,3 +50,34 @@ class CheckService(object):
     def nginxCheck(self, host, port, name="nginx"):
         '''mysql check'''
         return self.check(host, name, port)
+
+
+    def checkSoftInstallStatus(self,hostKey):
+        softs=self.dao.selectAllSoft()[0]
+        data=[]
+        for s in softs:
+            d={}
+            statue=self.checkInstalled(hostKey,s["serviceName"])
+            d["name"]=s["serviceName"]
+            d["statue"]=statue
+            data.append(d)
+        return data
+
+
+    def checkServiceRunning(self,hostKey,serviceName):
+        broker = BrokerService.getBroker(hostKey)
+        data=broker.execCmd("service  "+serviceName+"  status")
+        if "unrecognized" in data[1] or "is not running" in data[1]:
+            return False
+        else:
+            return True
+
+
+
+    def iptablesList(self,hostKey):
+        broker = BrokerService.getBroker(hostKey)
+        data=broker.execCmd("iptables -L")
+        return data
+
+
+print CheckService().iptablesList("127.0.0.1")[1].split("\n")

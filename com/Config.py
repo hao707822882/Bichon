@@ -32,7 +32,7 @@ __author__ = 'Administrator'
 class Config(object):
     version = "1.0.0"
     logging_level = logging.DEBUG
-    logging_file = "D:\\log.txt"
+    logging_file = "/home/yun/log.txt"
     agent_port = 8001
     check_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 服务器检测模块
     install_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 系统安装模块

@@ -33,7 +33,7 @@ __author__ = 'Administrator'
 class LocalCheck(object):
     @staticmethod
     def psCheck(what):
-        rt = commands.getstatusoutput("ps -ef | grep " + what)
+        rt = commands.getstatusoutput("ps -ef | grep " + what.encode("utf-8"))
         rt_Array = rt[1].replace("\r\n", "\n").split("\n")
         return rt_Array
 
@@ -45,8 +45,8 @@ class LocalCheck(object):
 
     @staticmethod
     def httpCheck(host, port, resource="/"):
-        conn = httplib.HTTPConnection(host, port)
-        req = conn.request('GET', resource)
+        conn = httplib.HTTPConnection(host.encode("utf-8"), int(port))
+        req = conn.request('GET', resource.encode("utf-8"))
         response = conn.getresponse()
         if response.status in [200, 301]:
             return True

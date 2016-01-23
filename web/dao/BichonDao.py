@@ -41,6 +41,8 @@ class BichonDao(BaseLoggingObj, object):
     '''每台服务器检测的服务'''
     serviceTB = "CREATE TABLE `service` (`id` INT(11) NOT NULL AUTO_INCREMENT,`execType` VARCHAR(30) COLLATE utf8_bin NOT NULL COMMENT '服务的检测类型',`execCommand` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL COMMENT '执行命令需要的参数',`port` VARCHAR(10) COLLATE utf8_bin DEFAULT NULL COMMENT '端口',`host` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`url` VARCHAR(100) COLLATE utf8_bin DEFAULT NULL COMMENT 'url',`serverId` INT(11) NOT NULL COMMENT '所属服务器ID',`lab` VARCHAR(30) NOT NULL COMMENT '描述',PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
 
+    spftTB="CREATE TABLE `soft` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `serviceName` varchar(100) COLLATE utf8_bin NOT NULL COMMENT 'service命令的第二个参数',  `softName` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '在下载服务器中的名字',  `lab` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '服务的别名',  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
+
     selectServerSql = "SELECT * FROM server"
 
     addServerSql = "INSERT INTO `server` (HOST,lab) VALUES('{0}','{1}')"
@@ -58,6 +60,8 @@ class BichonDao(BaseLoggingObj, object):
     deleteServiceByServerIdSql = "DELETE FROM service WHERE serverId={0}"
 
     deleteServiceByServiceIdSql="DELETE FROM service WHERE id={0}"
+
+    selectAllSoftSql="select * from soft"
 
     def __init__(self):
         BaseLoggingObj.__init__(self)
@@ -103,3 +107,7 @@ class BichonDao(BaseLoggingObj, object):
     def deleteServiceById(self, serviceId):
         sql = BichonDao.deleteServiceByServiceIdSql.format(serviceId)
         self.sqlHelp.delete(sql)
+
+    def selectAllSoft(self):
+        return self.sqlHelp.select(BichonDao.selectAllSoftSql)
+

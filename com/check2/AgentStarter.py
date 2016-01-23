@@ -28,6 +28,4 @@
 
 from com.check2.Agent import Agent
 
-__author__ = 'Administrator'
-
 agent = Agent()

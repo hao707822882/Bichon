@@ -31,6 +31,7 @@ from flask import Flask
 from flask import abort, render_template, flash, app, jsonify, redirect, request
 from web.dao.BichonDao import BichonDao
 from web.service.CpuService import CpuService
+from web.service.ExecService import ExecService
 from web.service.ProcessService import ProcessService
 from web.service.FileSystemService import FileSystemService
 from web.service.MemService import MemService
@@ -38,6 +39,9 @@ from web.service.CheckService import CheckService
 from web.service.NetService import NetService
 from com.Config import Config
 from web.service.task.TaskHelper import TaskHelper
+from web.service.IptableService import IptableService
+import socket
+
 
 app = Flask(__name__)
 
@@ -192,17 +196,60 @@ def allprocessesCustDetail():
 
 '''install管理'''
 
+@app.route('/install/check')
+def checkInstallStatue():
+    host = request.values.get("host")
+    data=check.checkSoftInstallStatus(host)
+    return jsonify(data=data, error=False, msg="")
 
-def install():
-    whcihInstall = request.values.get("install")
-    return
+
+@app.route('/iptable/statue')
+def iptableStatus():
+    host = request.values.get("host")
+    data=check.checkServiceRunning(host,"iptables")
+    return jsonify(data=data, error=False, msg="")
+
+@app.route('/iptable/list')
+def iptableList():
+    host = request.values.get("host")
+    data=iptable.iptableList(host)
+    return jsonify(data=data, error=False, msg="")
+
+@app.route('/iptable/delete')
+def iptableDelete():
+    host = request.values.get("host")
+    chain = request.values.get("chain")
+    index = request.values.get("index")
+    data=iptable.iptableDelete(host,chain,index)
+    return jsonify(data=data, error=False, msg="")
+
+@app.route('/iptable/add')
+def iptableAdd():
+    host = request.values.get("host")
+    type = request.values.get("type")
+    data = request.values.get("data")
+    if type=="ip":
+        rt=execService.runShell(host,"iptables -A INPUT -s "+data+" -p tcp -j DROP")
+    else:
+        rt=execService.runShell(host,"iptables -A INPUT -p tcp --dport "+data+" -j DROP")
+    if rt[0]==0:
+        return jsonify(error=False, msg="")
+    else:
+        return jsonify(error=True, msg="")
 
 
-@app.route("/test")
-def test():
-    print
-    print request.values.get("b")
-    print request.values.get("a")
+@app.route("/cmd")
+def execCmd():
+    host = request.values.get("host")
+    cmd = request.values.get("cmd")
+    d=execService.runShell(host,cmd)
+    data={}
+    data["msg"]=d[1]
+    if d[0]==0:
+        data["statue"]=True
+    else:
+        data["statue"]=False
+    return jsonify(data=data, error=False, msg="")
 
 
 if __name__ == '__main__':
@@ -213,6 +260,8 @@ if __name__ == '__main__':
     process = ProcessService()
     check = CheckService()
     net = NetService()
+    iptable=IptableService()
+    execService=ExecService()
     taskHelper = TaskHelper()
 
     app.run(debug=True)

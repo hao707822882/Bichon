@@ -89,14 +89,11 @@ class Agent(BaseLoggingObj, object):
         self.agent.register_function(self.ec.execCmd, "execCmd")
 
     '''process'''
-
-    def registerExec(self):
-        self.agent.register_function(self.ec.execCmd, "getPids")
-
     def registerProcess(self):
         self.agent.register_function(self.process.getPids, "getPids")
         self.agent.register_function(self.process.processInfo, "getProcessInfo")
         self.agent.register_function(self.process.getCusProcessInfo, "getCusProcessInfo")
+        self.agent.register_function(self.process.iptableList, "iptableList")
 
     def registerCheck(self):
         self.agent.register_function(self.check.portCheck, "portCheck")

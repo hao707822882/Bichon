@@ -253,11 +253,11 @@ BootStrapStarter.directive("myUpload", function () {
                     input.attr("type", type)
                     input.attr("name", name)
                 }
-
+                init()
                 //上传点击按钮
                 $scope.auto_upload = function () {
                     setUploadConfig(uploadPath, $scope.uploadSuccess, $scope.uploadError)
-                    $().upload()
+                    $("#"+id).upload()
                 }
 
             }

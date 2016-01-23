@@ -30,6 +30,7 @@ import psutil
 from com.common.BaseLoggingObj import BaseLoggingObj
 import json
 import time
+import iptc
 
 __author__ = 'Administrator'
 
@@ -77,3 +78,29 @@ class ProcessModule(BaseLoggingObj, object):
         data=self.getCusProcessInfoInternal(attrs=attrs)
         return json.dumps(data, encoding="utf-8")
 
+
+    def iptableList(self):
+        table = iptc.Table(iptc.Table.FILTER)
+        table.refresh()
+        iptables=[]
+        for chain in table.chains:
+            chainData=[]
+            chainName=chain.name
+            for rule in chain.rules:
+                data={}
+                data["chain"]=chainName
+                data["protoc0l"]=rule.protocol
+                data["src"]=rule.src
+                data["target"]=rule.dst
+                data["statue"]=rule.target.name
+                for match in rule._matches:
+                    if match.parameters["dport"] != None:
+                        if data.get("port")==None:
+                            data.setdefault("port","")
+                        data["port"]+=match.parameters["dport"]
+                chainData.append(data)
+            iptables.append(chainData)
+        return  iptables
+
+
+print ProcessModule().iptableList()

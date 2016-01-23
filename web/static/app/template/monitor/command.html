@@ -1,15 +1,16 @@
 <row>
     <panel head="命令执行">
         <form-inline-horizontal>
-            <input-container>
-                <label for="antivirus">命令</label>
-                <input type="text" id="antivirus" input-class placeholder="命令"/>
-                <btn><span class="glyphicon glyphicon-ok">查杀</span></btn>
-            </input-container>
+            <my-input id="cmd" lab="命令" name="cmd" type="input" placeholder="请输入命令"></my-input>
+            <btn ng-click="actionCmd()"><span class="glyphicon glyphicon-ok">GO!</span></btn>
         </form-inline-horizontal>
         <row>
             <div class="alert alert-warning alert-dismissible" role="alert">
-                <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                <strong>MSG!</strong>
+                <div>
+                    {{data.statue}}<br/>
+                    <div ng-bind-html="data.msg"></div>
+                </div>
             </div>
         </row>
     </panel>

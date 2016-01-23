@@ -26,13 +26,13 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
             controller: 'indexViewController'
         }).when('/install', {
             templateUrl: '/static/app/template/monitor/install.html',
-            controller: 'indexViewController'
+            controller: 'installController'
         }).when('/security', {
             templateUrl: '/static/app/template/monitor/security.html',
-            controller: 'indexViewController'
+            controller: 'securityController'
         }).when('/command', {
             templateUrl: '/static/app/template/monitor/command.html',
-            controller: 'indexViewController'
+            controller: 'commandController'
         }).when('/server', {
             templateUrl: '/static/app/template/server/server.html',
             controller: 'indexViewController'

@@ -3,43 +3,23 @@
         <tr>
             <th>服务名称</th>
             <th>状态</th>
-            <th>安装</th>
-            <th>卸载</th>
+            <th>安装/卸载</th>
         </tr>
 
-        <tr>
-            <td>mysql数据库服务</td>
-            <td class="bg-success"><span style="display: inline-block;float: right"
-                                         class="glyphicon glyphicon-ok-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installed</span>
-            <td>
-                <btn><span class="glyphicon glyphicon-download-alt">安装</span></btn>
+        <tr ng-repeat="install in installs">
+            <td>{{install.name}}</td>
+            <td class="bg-success" ng-if="install.statue"><span style="display: inline-block;float: right"
+                                                       class="glyphicon glyphicon-ok-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installed</span>
+            <td class="bg-danger" ng-if="!install.statue"><span style="display: inline-block;float: right"
+                                                       class="glyphicon glyphicon-remove">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NotInstalled</span>
+            <td ng-if="!install.statue">
+                <btn><span class="glyphicon glyphicon-download-alt" ng-click="installSoft(install)">安装</span></btn>
             </td>
-            <td>
-                <btn><span class="glyphicon glyphicon-remove">卸载</span></btn>
-            </td>
-        </tr>
-        <tr>
-            <td>mysql数据库服务</td>
-            <td class="bg-success"><span style="display: inline-block;float: right"
-                                         class="glyphicon glyphicon-ok-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installed</span>
-            <td>
-                <btn><span class="glyphicon glyphicon-download-alt">安装</span></btn>
-            </td>
-            <td>
-                <btn><span class="glyphicon glyphicon-remove">卸载</span></btn>
+            <td ng-if="install.statue">
+                <btn><span class="glyphicon glyphicon-remove" ng-click="removeSoft(install)">卸载</span></btn>
             </td>
         </tr>
-        <tr>
-            <td>mysql数据库服务</td>
-            <td class="bg-success"><span style="display: inline-block;float: right"
-                                         class="glyphicon glyphicon-ok-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installed</span>
-            <td>
-                <btn><span class="glyphicon glyphicon-download-alt">安装</span></btn>
-            </td>
-            <td>
-                <btn><span class="glyphicon glyphicon-remove">卸载</span></btn>
-            </td>
-        </tr>
+
 
     </table>
     <row>

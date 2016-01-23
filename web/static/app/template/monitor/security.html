@@ -1,11 +1,9 @@
 <row>
     <panel head="安全服务">
         <form-inline-horizontal>
-            <input-container>
-                <label for="antivirus">（1）病毒扫描</label>
-                <input type="file" id="antivirus" input-class placeholder="杀毒路径"/>
-                <btn><span class="glyphicon glyphicon-ok">查杀</span></btn>
-            </input-container>
+            <my-input id="antivirus" lab="（1）病毒扫描" name="antivirus" type="input" placeholder="请输入path"></my-input>
+            <btn ng-click="antivirus()"><span class="glyphicon glyphicon-ok">执行</span></btn>
+
         </form-inline-horizontal>
         <row>
             <div class="alert alert-warning alert-dismissible" role="alert">
@@ -14,48 +12,47 @@
         </row>
     </panel>
     <panel head="防火墙服务">
+
+        <table class="table table-striped table-hover">
+            <tr>
+                <td>防火墙当前状态</td>
+                <td class="bg-success" ng-if="security.data"><span style="display: inline-block;float: right"
+                                                                    class="glyphicon glyphicon-ok-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OPEN</span>
+                <td class="bg-danger" ng-if="!security.data"><span style="display: inline-block;float: right"
+                                                                    class="glyphicon glyphicon-remove">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLOSED</span>
+                <td ng-if="!security.data">
+                    <btn><span class="glyphicon glyphicon-ok-circle" ng-click="installSoft(install)">打开</span></btn>
+                </td>
+                <td ng-if="security.data">
+                    <btn><span class="glyphicon glyphicon-remove" ng-click="removeSoft(install)">关闭</span></btn>
+                </td>
+            </tr>
+        </table>
         <form-inline-horizontal>
-            <input-container>
-                <label for="iptables">（2）端口服务</label>
-                <input type="text" id="iptables" input-class placeholder="端口"/>
-                <select input-class multiple>
-                    <option>关闭</option>
-                    <option>打开</option>
-                </select>
-                <btn><span class="glyphicon glyphicon-ok">执行</span></btn>
-            </input-container>
+            <my-input id="ipport" lab="ip/port" name="ipport" type="input" placeholder="请输入ip/port"></my-input>
+                <btn ng-click="close()"><span class="glyphicon glyphicon-ok">执行</span></btn>
         </form-inline-horizontal>
         <row>
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <strong>Warning!</strong> Better check yourself, you're not looking too good.
             </div>
         </row>
-        <table class="table table-striped table-hover">
-            <tr>
+        <table class="table table-striped table-hover" ng-repeat="iptable in iptables track by $index" ng-if="iptable.len != 0">
+            <tr ng-if="$index == 0">
+                <th>过滤连</th>
                 <th>端口</th>
-                <th>IN/OUT</th>
+                <th>协议</th>
+                <th>源地址</th>
+                <th>目的地址</th>
                 <th>状态</th>
             </tr>
-            <tr>
-                <td>80</td>
-                <td>IN</td>
-                <td>ACCEPT</td>
-            </tr>
-            <tr>
-                <td>80</td>
-                <td>OUT</td>
-                <td>ACCEPT</td>
-            </tr>
-
-            <tr>
-                <td>3306</td>
-                <td>IN</td>
-                <td>ACCEPT</td>
-            </tr>
-            <tr>
-                <td>3306</td>
-                <td>OUT</td>
-                <td>ACCEPT</td>
+            <tr ng-repeat="data in iptable track by $index" ng-click="delete(data.chain,$index+1)">
+                <td>{{data.chain}}</td>
+                <td>{{data.port}}</td>
+                <td>{{data.protoc0l}}</td>
+                <td>{{data.src}}</td>
+                <td>{{data.target}}</td>
+                <td>{{data.statue}}</td>
             </tr>
         </table>
     </panel>
