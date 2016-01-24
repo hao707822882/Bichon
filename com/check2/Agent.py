@@ -25,9 +25,9 @@
 #  Date: 2016/1/19
 #  Time: 14:38
 
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+import  SimpleXMLRPCServer,SocketServer
 from com.Config import Config
-
+import time,thread
 from com.check.agent.module.monitoring.cpu.CpuModule import CpuModule
 from com.check.agent.module.monitoring.disk.DiskModule import DiskModule
 from com.check.agent.module.monitoring.mem.MemModule import MemModule
@@ -35,11 +35,14 @@ from com.check.agent.module.monitoring.net.NetModule import NetModule
 from com.check.agent.module.execing.ExecModule import ExecModule
 from com.check.agent.module.monitoring.process.CheckModule import CheckModule
 from com.check.agent.module.monitoring.process.ProcessModule import ProcessModule
+from com.check.agent.module.service.File import FileModule
 
 from com.common.BaseLoggingObj import BaseLoggingObj
 
-__author__ = 'Administrator'
 
+
+class RPCThreading(SocketServer.ThreadingMixIn, SimpleXMLRPCServer.SimpleXMLRPCServer):
+    pass
 
 class Agent(BaseLoggingObj, object):
     def __init__(self):
@@ -51,7 +54,8 @@ class Agent(BaseLoggingObj, object):
         self.ec = ExecModule()
         self.check = CheckModule()
         self.process = ProcessModule()
-        self.agent = SimpleXMLRPCServer(("0.0.0.0", Config.agent_port))
+        self.file = FileModule()
+        self.agent = RPCThreading(("0.0.0.0", Config.agent_port))
         self.registerCpu()
         self.registerDisk()
         self.registerExec()
@@ -59,6 +63,7 @@ class Agent(BaseLoggingObj, object):
         self.registerNet()
         self.registerProcess()
         self.registerCheck()
+        self.registerFile()
         self.logging.info("客户端程序启动。。。")
         self.agent.serve_forever();
 
@@ -94,8 +99,13 @@ class Agent(BaseLoggingObj, object):
         self.agent.register_function(self.process.processInfo, "getProcessInfo")
         self.agent.register_function(self.process.getCusProcessInfo, "getCusProcessInfo")
         self.agent.register_function(self.process.iptableList, "iptableList")
-
+    '''check'''
     def registerCheck(self):
         self.agent.register_function(self.check.portCheck, "portCheck")
         self.agent.register_function(self.check.processCheck, "processCheck")
         self.agent.register_function(self.check.urlCheck, "urlCheck")
+
+    '''file'''
+    def registerFile(self):
+        self.agent.register_function(self.file.readFile, "readFile")
+        self.agent.register_function(self.file.overwriteFile, "overwriteFile")

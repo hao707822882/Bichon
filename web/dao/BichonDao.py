@@ -51,7 +51,7 @@ class BichonDao(BaseLoggingObj, object):
 
     addServiceSql = "INSERT INTO `service` (serverId, execType, execCommand, host, port, url,lab) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')"
 
-    selectServiceSql = "SELECT * FROM service WHERE serverId={0}"
+    selectServiceSql = "SELECT * FROM service"
 
     selectServiceWithServerSql = "SELECT * FROM service,server WHERE service.serverId = server.id"
 
@@ -89,9 +89,8 @@ class BichonDao(BaseLoggingObj, object):
         sql = BichonDao.addServiceSql.format(serverId, execType, execCommand, host,port,url,lab)
         self.sqlHelp.insert(sql)
 
-    def selectService(self, serverId):
-        sql = BichonDao.selectServiceSql.format(serverId)
-        return self.sqlHelp.select(sql)
+    def selectService(self):
+        return self.sqlHelp.select(BichonDao.selectServiceSql)
 
     def selectServiceWithServer(self):
         return self.sqlHelp.select(BichonDao.selectServiceWithServerSql)

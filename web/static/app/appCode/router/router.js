@@ -23,7 +23,7 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
             controller: 'serviceController'
         }).when('/projectPush', {
             templateUrl: '/static/app/template/projectPush/projectPush.html',
-            controller: 'indexViewController'
+            controller: 'projectPushController'
         }).when('/install', {
             templateUrl: '/static/app/template/monitor/install.html',
             controller: 'installController'
@@ -38,7 +38,7 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
             controller: 'indexViewController'
         }).when('/config', {
             templateUrl: '/static/app/template/config/config.html',
-            controller: 'indexViewController'
+            controller: 'configController'
         }).
         otherwise({
             redirectTo: '/disk'

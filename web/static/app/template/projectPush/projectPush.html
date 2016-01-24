@@ -1,10 +1,6 @@
 <panel head="项目推送服务">
     <form-inline-horizontal>
-        <input-container>
-            <label for="pushProject">（1）上传数据</label>
-            <input type="file" id="pushProject" input-class/>
-            <btn><span class="glyphicon glyphicon-cloud-upload">上传</span></btn>
-        </input-container>
+        <my-upload inputid="uploadProject" lab="project tar/zip" name="file" uploadpath="/upload"></my-upload>
     </form-inline-horizontal>
     <form-inline-horizontal>
         <input-container>

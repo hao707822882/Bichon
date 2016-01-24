@@ -3,7 +3,7 @@
 from com.common.check.LocalCheck import LocalCheck
 from web.broker.BrokerService import BrokerService
 from web.dao.BichonDao import BichonDao
-
+from com.check.agent.module.lock import lock
 from web.service.TimerTaskService import TimerTaskService
 
 __author__ = 'Administrator'
@@ -25,7 +25,7 @@ class CheckService(object):
 
     def urlCheck(self, host, port, resource):
         return LocalCheck.httpCheck(host, port, resource=resource)
-
+    @lock
     def check(self, host, name, port):
         '''mysql check'''
         psData = self.processCheck(host.encode("utf-8"), name.encode("utf-8"))

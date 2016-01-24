@@ -30,9 +30,9 @@
         },
 
     // 默认参数
-        defaults = {
+    defaults = {
             // 留空表示提交到当前页面
-            action: "/admin/uploadBGMFile",
+            action: "",
             // 头信息
             headers: {},
             // 传递额外数据（键值对字符串）
@@ -42,24 +42,17 @@
             // 完成回调，无论成功还是失败
             oncomplete: $.noop,
             // 成功回调
-            onsuccess: function (data) {
-                if (data.success) {
-                    var targetScope = angular.element($("#file")[0]).scope();
-                    targetScope.saveData.fileName = data.data
-                    layer.msg("上传成功！")
-                } else {
-                    layer.msg("上传失败！")
-                }
-            },
+            onsuccess:  $.noop,
             // 失败回调
-            onerror: function () {
-                layer.msg("上传失败！")
-            },
+            onerror:  $.noop,
             // 进度回调
             onprogress: $.noop
         };
 
     $.fn.upload = function (settings) {
+        if($.fn.upload.defaults){
+            defaults=$.fn.upload.defaults
+        }
         var isOperiaction = $.type(settings) === 'string',
             options = isOperiaction ? {} : $.extend({}, defaults, settings),
             args = [].slice.call(arguments);

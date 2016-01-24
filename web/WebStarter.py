@@ -40,6 +40,7 @@ from web.service.NetService import NetService
 from com.Config import Config
 from web.service.task.TaskHelper import TaskHelper
 from web.service.IptableService import IptableService
+from web.service.FileService import FileService
 import socket
 
 
@@ -63,9 +64,9 @@ def getAllServer():
 '''service'''
 
 # 获取当前服务器的所有服务
-@app.route('/service/<int:serverId>')
-def getAllService(serverId=1):
-    services = dao.selectService(serverId)
+@app.route('/service/getall')
+def getAllService():
+    services = dao.selectService()
     return jsonify(data=services[0], pages=len(services))
 
 
@@ -215,6 +216,13 @@ def iptableList():
     data=iptable.iptableList(host)
     return jsonify(data=data, error=False, msg="")
 
+@app.route('/upload',methods=['GET', 'POST'])
+def upload():
+    f = request.files['file']
+    f.save(Config.uploadTempDir+f.filename)
+    return jsonify(data=True, error=False, msg="")
+
+
 @app.route('/iptable/delete')
 def iptableDelete():
     host = request.values.get("host")
@@ -237,7 +245,7 @@ def iptableAdd():
     else:
         return jsonify(error=True, msg="")
 
-
+'''command'''
 @app.route("/cmd")
 def execCmd():
     host = request.values.get("host")
@@ -251,6 +259,15 @@ def execCmd():
         data["statue"]=False
     return jsonify(data=data, error=False, msg="")
 
+'''command'''
+@app.route("/getConfig")
+def getConfig():
+    host = request.values.get("host")
+    path = request.values.get("path")
+    data=fileService.readFile(host,path)
+    return jsonify(data=data, error=False, msg="")
+
+
 
 if __name__ == '__main__':
     dao = BichonDao()
@@ -262,6 +279,7 @@ if __name__ == '__main__':
     net = NetService()
     iptable=IptableService()
     execService=ExecService()
+    fileService=FileService()
     taskHelper = TaskHelper()
 
     app.run(debug=True)

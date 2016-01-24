@@ -198,11 +198,10 @@ BootStrapStarter.directive("myUpload", function () {
             templateUrl: "/static/app/bootstrap/template/form/upload.html",
             link: function ($scope, $element, $attrs) {
 
-                var id = $attrs.id
+                var id = $attrs.inputid
                 var lab = $attrs.lab
-                var type = "file"
                 var name = $attrs.name
-                var uploadPath = $attrs.uploadPath
+                var uploadPath = $attrs.uploadpath
 
                 //上传element
                 var label = $element.find("label")
@@ -240,7 +239,7 @@ BootStrapStarter.directive("myUpload", function () {
 
                 //确信上传回调ok, 如果没有回调也要写个空的
                 function enSureUploadCallBack() {
-                    if ($scope.uploadSuccess && $scope.uploadError) {
+                    if (!$scope.uploadSuccess && !$scope.uploadError) {
                         alert("$scope.uploadSuccess && $scope.uploadError function must be defined!")
                     }
                 }
@@ -250,14 +249,13 @@ BootStrapStarter.directive("myUpload", function () {
                     label.attr("for", id)
                     label.text(lab)
                     input.attr("id", id)
-                    input.attr("type", type)
                     input.attr("name", name)
                 }
                 init()
                 //上传点击按钮
                 $scope.auto_upload = function () {
                     setUploadConfig(uploadPath, $scope.uploadSuccess, $scope.uploadError)
-                    $("#"+id).upload()
+                    $('#uploadProject').upload()
                 }
 
             }

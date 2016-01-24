@@ -26,7 +26,7 @@
 #  Time: 13:50
 
 from com.common.check.LocalCheck import LocalCheck
-
+from com.check.agent.module.lock import lock
 __author__ = 'Administrator'
 
 
@@ -42,3 +42,6 @@ class CheckModule(object):
 
     def urlCheck(self, host, url, port):
         return LocalCheck.httpCheck(host, port, resource=url)
+
+
+print CheckModule().processCheck("mysql")
