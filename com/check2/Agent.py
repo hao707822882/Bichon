@@ -37,6 +37,7 @@ from com.check.agent.module.monitoring.process.CheckModule import CheckModule
 from com.check.agent.module.monitoring.process.ProcessModule import ProcessModule
 from com.check.agent.module.service.File import FileModule
 
+
 from com.common.BaseLoggingObj import BaseLoggingObj
 
 
@@ -65,7 +66,7 @@ class Agent(BaseLoggingObj, object):
         self.registerCheck()
         self.registerFile()
         self.logging.info("客户端程序启动。。。")
-        self.agent.serve_forever();
+        self.agent.serve_forever()
 
     '''cpu信息'''
 
@@ -109,3 +110,5 @@ class Agent(BaseLoggingObj, object):
     def registerFile(self):
         self.agent.register_function(self.file.readFile, "readFile")
         self.agent.register_function(self.file.overwriteFile, "overwriteFile")
+        self.agent.register_function(self.file.downloadFile, "downloadFile")
+

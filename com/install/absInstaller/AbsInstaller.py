@@ -39,3 +39,7 @@ class AbsInstaller(object):
     @abstractmethod
     def install(self):
         pass
+
+    def getInfo(self,cmd,statue,info):
+        return {'cmd':cmd,'statue':statue,'info':info}
+

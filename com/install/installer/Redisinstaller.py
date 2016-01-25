@@ -37,14 +37,14 @@ __author__ = 'Administrator'
 class RedisInstaller(BaseLoggingObj, YumInstaller, object):
     def yumInstall(self):
         try:
-            child = pexpect.spawnu('yum install redis')
-            child.expect('(?i)Is this ok [y/N]:')
+            child = pexpect.spawnu('yum install redis'.decode("utf-8"))
+            child.expect(['(?i)Is this ok [y/N]: '.decode("utf-8"), pexpect.EOF, pexpect.TIMEOUT])
             child.sendline('y')
             child.expect('Complete!')
             child.close()
             self.writeConfig()
             return True
-        except WindowsError, e:
+        except Exception, e:
             return False
 
     def writeConfig(self):

@@ -37,14 +37,13 @@ __author__ = 'Administrator'
 class NginxInstaller(BaseLoggingObj, YumInstaller, object):
     def yumInstall(self):
         try:
-            child = pexpect.spawnu('yum install nginx')
-            child.expect('(?i)Is this ok [y/N]:')
+            child = pexpect.spawn('yum install tftp'.decode("utf-8"))
+            child.expect(['(?i)Is this ok [y/N]: '.decode("utf-8"), pexpect.EOF, pexpect.TIMEOUT])
             child.sendline('y')
             child.expect('Complete!')
             child.close()
             self.writeConfig()
-            return True
-        except WindowsError, e:
+        except Exception, e:
             return False
 
     def writeConfig(self):
@@ -56,3 +55,5 @@ class NginxInstaller(BaseLoggingObj, YumInstaller, object):
 
     def what(self):
         return "nginx"
+
+NginxInstaller().yumInstall()

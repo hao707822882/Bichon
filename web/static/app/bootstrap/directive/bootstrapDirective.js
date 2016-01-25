@@ -221,15 +221,15 @@ BootStrapStarter.directive("myUpload", function () {
                         // 完成回调，无论成功还是失败
                         oncomplete: $.noop,
                         // 成功回调
-                        onsuccess: function () {
-                            $scope.$apply(function () {
-                                success()
+                        onsuccess: function (data) {
+                            $scope.$apply(function (data) {
+                                success(data)
                             })
                         },
                         // 失败回调
-                        onerror: function () {
-                            $scope.$apply(function () {
-                                error()
+                        onerror: function (data) {
+                            $scope.$apply(function (data) {
+                                error(data)
                             })
                         },
                         // 进度回调
@@ -425,7 +425,7 @@ BootStrapStarter.directive("myRadio", function () {
 /**
  * select控件
  */
-BootStrapStarter.directive("mySelect", function () {
+BootStrapStarter.directive("mySelect", function ($http) {
     return {
         restrict: 'E',
         replace: true,
@@ -436,6 +436,20 @@ BootStrapStarter.directive("mySelect", function () {
             var name = $attrs.name
             var option = eval("(" + $attrs.options + ")")//下拉列表项
             var multiple = $attrs.multiple//多选
+
+            var value=$attrs.value
+            var text=$attrs.text
+            var dataMapKey=$attrs.datamapkey
+            var remote=$attrs.remote
+
+
+
+            if(!value){
+                value="value"
+            }
+            if(!text){
+                text="text"
+            }
 
             function sureFoemData() {
                 //确认父容器的值容器
@@ -460,22 +474,50 @@ BootStrapStarter.directive("mySelect", function () {
                 }
                 select.attr("id", id)
                 select.attr("name", name)
-                $(option).each(function () {
-                    //创建option
-                    select.append(
-                        $("<option/>").attr("value", this.value).text(this.text).on('blur keyup change click', function () {
-                            var selectOptions = select.find("option:selected")
-                            $scope.$apply(function () {
-                                var sf = $scope.formData;
-                                var data = []
-                                $(selectOptions).each(function () {
-                                    data.push($(this).val())
+
+                if(remote){
+                    $http.get(remote).success(function(data){
+                        if(dataMapKey)
+                            data=data[dataMapKey]
+                        else
+                            data=data
+                        $(data).each(function () {
+                            //创建option
+                            select.append(
+                                $("<option/>").attr("value", this[value]).text(this[text]).on('blur keyup change click', function () {
+                                    var selectOptions = select.find("option:selected")
+                                    $scope.$apply(function () {
+                                        var sf = $scope.formData;
+                                        var data = []
+                                        $(selectOptions).each(function () {
+                                            data.push($(this).val())
+                                        })
+                                        sf[name] = data;
+                                    })
                                 })
-                                sf[name] = data;
-                            })
+                            )
                         })
-                    )
-                })
+                    }).error(function(){
+                        layer.msg("get data error!")
+                    })
+                }else{
+                    $(option).each(function () {
+                        //创建option
+                        select.append(
+                            $("<option/>").attr("value", this[value]).text(this[text]).on('blur keyup change click', function () {
+                                var selectOptions = select.find("option:selected")
+                                $scope.$apply(function () {
+                                    var sf = $scope.formData;
+                                    var data = []
+                                    $(selectOptions).each(function () {
+                                        data.push($(this).val())
+                                    })
+                                    sf[name] = data;
+                                })
+                            })
+                        )
+                    })
+                }
             }
 
             init()

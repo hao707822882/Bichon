@@ -1,3 +1,9 @@
-apscheduler
-MySQLdb
-redis
+yum install pexpect
+easy_install flask
+yum install python-devel
+easy_install mysql-python
+easy_install psutil
+easy_install apscheduler
+easy_install python-iptables
+easy_install ptyprocess
+easy_install pexpect

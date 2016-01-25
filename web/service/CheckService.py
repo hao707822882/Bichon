@@ -39,7 +39,11 @@ class CheckService(object):
         broker = BrokerService.getBroker(hostKey)
         data=broker.execCmd("service  "+softName+"  status")
         if "unrecognized" in data[1]:
-            return False
+            d=broker.execCmd("which "+softName)
+            if d[0]!=0:
+                return False
+            else:
+                return True
         else:
             return True
 
@@ -78,6 +82,3 @@ class CheckService(object):
         broker = BrokerService.getBroker(hostKey)
         data=broker.execCmd("iptables -L")
         return data
-
-
-print CheckService().iptablesList("127.0.0.1")[1].split("\n")

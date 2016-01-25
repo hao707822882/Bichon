@@ -40,15 +40,59 @@ __author__ = 'Administrator'
 
 class MysqlInstaller(BaseLoggingObj, YumInstaller, object):
     def yumInstall(self):
-        child = pexpect.spawnu('yum install mysql*')
-        child.expect('(?i)Is this ok [y/N]:')
-        child.sendline('y')
-        child.expect('Complete!')
-        child.close()
-        self.writeConfig()
-        ExecUtil.execCommand("service mysqld restart")
-        ExecUtil.execCommand("mysqladmin -u root password " + Config.mysqlRoot)
-        ExecUtil.execCommand("mysql -uroot -p" + Config.mysqlRoot + "-e select version()")
+        info=[]
+        try:
+            child = pexpect.spawnu('yum install mysql*'.decode("utf-8"))
+            child.expect(['(?i)Is this ok [y/N]: '.decode("utf-8"), pexpect.EOF, pexpect.TIMEOUT])
+            child.sendline('y')
+            child.expect('Complete!')
+            child.close()
+            install=self.getInfo("yum install mysql*",True,"yum install mysql* ok")
+            info.append(install)
+        except Exception , e:
+            install=self.getInfo("yum install mysql*",False,"yum install mysql* false")
+            info.append(install)
+            return info
+        try:
+            self.writeConfig()
+            install=self.getInfo("write config",True,"write config ok")
+            info.append(install)
+        except Exception , e:
+            install=self.getInfo("write config",False,"write config false")
+            info.append(install)
+            return info
+
+
+        rt=ExecUtil.execCommand("service mysqld restart")
+        if rt[0]==0:
+            install=self.getInfo("service mysqld restart",True,rt[1])
+            info.append(install)
+        else:
+            install=self.getInfo("service mysqld restart",False,rt[1])
+            info.append(install)
+            return info
+
+        rt=ExecUtil.execCommand("mysqladmin -u root password " + Config.mysqlRoot)
+        if rt[0]==0:
+            install=self.getInfo("mysqladmin -u root password "+Config.mysqlRoot,True,rt[1])
+            info.append(install)
+        else:
+            install=self.getInfo("mysqladmin -u root password "+Config.mysqlRoot,False,rt[1])
+            info.append(install)
+            return info
+
+        rt=ExecUtil.execCommand("mysql -uroot -p" + Config.mysqlRoot + "-e select version()")
+        if rt[0]==0:
+            install=self.getInfo("mysql -uroot -p" + Config.mysqlRoot + "-e select version()",True,rt[1])
+            info.append(install)
+        else:
+            install=self.getInfo("mysql -uroot -p" + Config.mysqlRoot + "-e select version()",False,rt[1])
+            info.append(install)
+            return info
+
+        return info
+
+
 
     def __init__(self, config=Config):
         BaseLoggingObj.__init__(self, config)

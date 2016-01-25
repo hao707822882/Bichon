@@ -2,22 +2,20 @@
     <panel head="服务器管理">
         <row>
             <form-inline-horizontal>
-                <input-container>
-                    <label for="host">服务器</label>
-                    <input type="text" id="host" input-class placeholder="服务器host"/>
-                </input-container>
-                <input-container>
-                    <label for="lab">文件路径</label>
-                    <input type="text" id="lab" input-class placeholder="文件路径"/>
-                </input-container>
-                <btn><span class="glyphicon glyphicon-ok">加载配置</span></btn>
+
+                <my-select id="server" lab="服务器list" name="server"
+                           multiple="true" datamapkey="data" value="host" text="host" remote="/server/getAll"></my-select>
+
+                <my-input id="path" lab="config file path" name="configPath" type="input" placeholder="config file path"></my-input>
+
+                <btn ng-click="getConfig()"><span class="glyphicon glyphicon-cloud-upload">Get!</span></btn>
             </form-inline-horizontal>
         </row>
         <row>
             <form-inline-horizontal>
                 <input-container>
-                    <textarea rows="30" cols="160">{{data}}</textarea>
-                    <btn><span class="glyphicon glyphicon-ok">更改配置</span></btn>
+                    <textarea rows="30" cols="160" id="text">{{data}}</textarea>
+                    <btn ng-click="update()"><span class="glyphicon glyphicon-ok">更改配置</span></btn>
                 </input-container>
             </form-inline-horizontal>
         </row>
@@ -28,11 +26,8 @@
         </row>
         <row>
             <form-inline-horizontal>
-                <input-container>
-                    <label for="command">命令</label>
-                    <input type="text" id="command" input-class placeholder="命令"/>
-                    <btn><span class="glyphicon glyphicon-ok">执行</span></btn>
-                </input-container>
+                <my-input id="execCmd" lab="(2)exec" name="execCmd" type="input" placeholder="exec cmd"></my-input>
+                <btn ng-click="execCmd()"><span class="glyphicon glyphicon-cloud-upload">执行</span></btn>
             </form-inline-horizontal>
         </row>
         <row>

@@ -35,7 +35,7 @@ myAppModule.config(['$routeProvider', function ($routeProvider) {
             controller: 'commandController'
         }).when('/server', {
             templateUrl: '/static/app/template/server/server.html',
-            controller: 'indexViewController'
+            controller: 'serverController'
         }).when('/config', {
             templateUrl: '/static/app/template/config/config.html',
             controller: 'configController'

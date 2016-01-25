@@ -3,32 +3,22 @@
         <my-upload inputid="uploadProject" lab="project tar/zip" name="file" uploadpath="/upload"></my-upload>
     </form-inline-horizontal>
     <form-inline-horizontal>
-        <input-container>
-            <label for="pushDir">（1）数据推送</label>
-            <input type="text" id="pushDir" input-class style="width: 300px;"/>
-            <select ng-model="hosts" type="file" input-class multiple>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-            </select>
-            <btn><span class="glyphicon glyphicon-cloud-upload">推送</span></btn>
-        </input-container>
-    </form-inline-horizontal>
-    <form-inline-horizontal>
-        <input-container>
-            <label for="command">（1）远程执行</label>
-            <input type="text" id="command" input-class style="width: 300px;"/>
-            <select type="file" id="" input-class multiple>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-                <option>127.0.0.1</option>
-            </select>
-            <btn><span class="glyphicon glyphicon-cloud-upload">执行</span></btn>
-        </input-container>
+        <my-input id="pushpath" lab="（1）数据推送" name="pushpath" type="input" placeholder="push path"></my-input>
+    <my-select id="pushserver" lab="" name="pushserver"
+               multiple="true" datamapkey="data" value="host" text="host" remote="/server/getAll"></my-select>
+        <btn ng-click="push()"><span class="glyphicon glyphicon-cloud-upload">推送</span></btn>
     </form-inline-horizontal>
 
+
+    <form-inline-horizontal>
+        <my-input id="execCmd" lab="(2)exec" name="execCmd" type="input" placeholder="exec cmd"></my-input>
+        <btn ng-click="pushAfter()"><span class="glyphicon glyphicon-cloud-upload">执行</span></btn>
+    </form-inline-horizontal>
+
+    <row>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <div><strong>Warning!</strong></div>
+            <div ng-bind-html="data.msg"></div>
+        </div>
+    </row>
 </panel>

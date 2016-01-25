@@ -61,6 +61,18 @@ def getAllServer():
     return jsonify(data=dao.selectServer()[0], pages=len(server))
 
 
+@app.route('/server/delete/<int:serverId>')
+def deleteServer(serverId):
+    server = dao.deleteServer(serverId)
+    return jsonify(error=False, msg="")
+
+@app.route('/server/add',methods=['GET', 'POST'])
+def addServer():
+    lab = request.values.get("lab")
+    host = request.values.get("host")
+    dao.addServer(host.encode("utf-8"),lab.encode("utf-8"))
+    return jsonify(error=False, msg="")
+
 '''service'''
 
 # 获取当前服务器的所有服务
@@ -216,11 +228,29 @@ def iptableList():
     data=iptable.iptableList(host)
     return jsonify(data=data, error=False, msg="")
 
+'''project push'''
 @app.route('/upload',methods=['GET', 'POST'])
 def upload():
     f = request.files['file']
     f.save(Config.uploadTempDir+f.filename)
     return jsonify(data=True, error=False, msg="")
+
+@app.route('/projectPush',methods=['GET', 'POST'])
+def projectPush():
+    host = request.values.get("host")
+    path = request.values.get("path")
+    hosts=host.split(",")
+    datas=[]
+    for h in hosts:
+        data=fileService.downloadFile(h,path)
+        da={}
+        da["msg"]=data[1]
+        if data[0]==0:
+            da["statue"]=True
+        else:
+            da["statue"]=False
+        datas.append(data)
+    return jsonify(data=datas, error=False, msg="")
 
 
 @app.route('/iptable/delete')
@@ -248,16 +278,20 @@ def iptableAdd():
 '''command'''
 @app.route("/cmd")
 def execCmd():
-    host = request.values.get("host")
     cmd = request.values.get("cmd")
-    d=execService.runShell(host,cmd)
-    data={}
-    data["msg"]=d[1]
-    if d[0]==0:
-        data["statue"]=True
-    else:
-        data["statue"]=False
-    return jsonify(data=data, error=False, msg="")
+    host = request.values.get("host")
+    hosts=host.split(",")
+    da=[]
+    for h in hosts:
+        d=execService.runShell(h.encode("utf-8"),cmd.encode("utf-8"))
+        data={}
+        data["msg"]=d[1]
+        if d[0]==0:
+            data["statue"]=True
+        else:
+            data["statue"]=False
+        da.append(data)
+    return jsonify(data=da, error=False, msg="")
 
 '''command'''
 @app.route("/getConfig")
@@ -266,6 +300,16 @@ def getConfig():
     path = request.values.get("path")
     data=fileService.readFile(host,path)
     return jsonify(data=data, error=False, msg="")
+
+@app.route("/updateConfig",methods=['GET', 'POST'])
+def updateConfig():
+    host = request.values.get("host")
+    data = request.values.get("data")
+    path = request.values.get("path")
+    data=fileService.overwriteFile(host,path,data)
+    return jsonify(data=data, error=False, msg="")
+
+
 
 
 

@@ -102,5 +102,3 @@ class ProcessModule(BaseLoggingObj, object):
             iptables.append(chainData)
         return  iptables
 
-
-print ProcessModule().iptableList()

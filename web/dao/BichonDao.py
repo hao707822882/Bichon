@@ -45,7 +45,7 @@ class BichonDao(BaseLoggingObj, object):
 
     selectServerSql = "SELECT * FROM server"
 
-    addServerSql = "INSERT INTO `server` (HOST,lab) VALUES('{0}','{1}')"
+    addServerSql = "INSERT INTO `server` (host,lab) VALUES('{0}','{1}')"
 
     deleteServerSql = "DELETE FROM service WHERE id={0}"
 
@@ -62,6 +62,9 @@ class BichonDao(BaseLoggingObj, object):
     deleteServiceByServiceIdSql="DELETE FROM service WHERE id={0}"
 
     selectAllSoftSql="select * from soft"
+
+    deleteServerSql="delete from server where id={}"
+
 
     def __init__(self):
         BaseLoggingObj.__init__(self)
@@ -110,3 +113,6 @@ class BichonDao(BaseLoggingObj, object):
     def selectAllSoft(self):
         return self.sqlHelp.select(BichonDao.selectAllSoftSql)
 
+    def deleteServer(self,serverId):
+        sql = BichonDao.deleteServerSql.format(serverId)
+        self.sqlHelp.delete(sql)

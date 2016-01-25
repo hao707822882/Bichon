@@ -43,5 +43,3 @@ class CheckModule(object):
     def urlCheck(self, host, url, port):
         return LocalCheck.httpCheck(host, port, resource=url)
 
-
-print CheckModule().processCheck("mysql")

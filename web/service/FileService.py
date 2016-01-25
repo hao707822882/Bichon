@@ -25,3 +25,8 @@ class FileService(object):
         data=broker.overwriteFile(path,data)
         return data
 
+    def downloadFile(self,hostKey,path):
+        broker = BrokerService.getBroker(hostKey)
+        data=broker.downloadFile(path)
+        return data
+

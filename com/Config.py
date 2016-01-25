@@ -36,10 +36,10 @@ class Config(object):
     agent_port = 8001
     check_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 服务器检测模块
     install_module_path = "F:\\sourceReading\\Bichon\\com\\check\\agent\\module"  # 系统安装模块
-    uploadTempDir = "/home/yun/"  # 文件上传目录（web）
+    uploadTempDir = "/data/"  # 文件上传目录（web）
     redisHost = "127.0.0.1"
     redisPort = "6379"
-    softServer = "http://127.0.0.1/"  # 软件下载服务器地址
+    softServer = "http://127.0.0.1:81/"  # 软件下载服务器地址
     softSavePath = "F:\\sourceReading\\Bichon\\com"  # 软件下载地址
     softInstallPath = "/usr/local"
     # 软件服务器列表

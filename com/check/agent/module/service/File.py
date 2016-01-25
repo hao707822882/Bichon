@@ -26,6 +26,9 @@
 #  Time: 14:43
 '''命令执行模块'''
 
+from com.common.execCommand.ExecUtil import ExecUtil
+from com.Config import Config
+import os
 
 __author__ = 'Administrator'
 
@@ -49,5 +52,13 @@ class FileModule(object):
             ff.write(data)
         finally:
             ff.close()
+
+        return True
+
+
+    '''download file '''
+    def downloadFile(self,downloadPath):
+        filename=os.path.basename(downloadPath)
+        return ExecUtil.execCommand("wget -O " + downloadPath + " " + Config.softServer+filename)
 
 
